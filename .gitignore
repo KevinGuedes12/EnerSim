@@ -1,5 +1,5 @@
 # Configurações locais do WebStorm
-/.idea/
+/.idea
 # Arquivos temporários do WebStorm
 /shelf/
 /httpRequests/

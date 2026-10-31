@@ -1,0 +1,609 @@
+/* 1. Box sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* 2. Remover margens padrão */
+* {
+    margin: 0;
+}
+
+/* 3. Configurações gerais */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 4. Mídias responsivas */
+img,
+picture,
+canvas
+{
+    display: block;
+    max-width: 100%;
+}
+
+/* 5. Formulários herdam a fonte */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* 6. Evitar textos estourando containers */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+/* 7. Botões */
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+/* 8. Respeitar usuários sensíveis a animações */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+body{
+    background: var(--backgroundColor);
+    font-family: 'Inter', Roboto, Arial, sans-serif;
+}
+input, button, select, textarea { font: inherit; }
+
+/*card-Sidebar*/
+.sidebar{
+    width: 360px;
+    height: auto;
+    background: var(--side-barheader);
+    border-radius:var(--bordas-cards);
+    padding: var(--paddingExt);
+}
+
+/*header*/
+.sidebar-header{
+    display: flex;
+}
+.header_title{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-left: 10px;
+}
+
+.logo-icon {
+    font-size: 42px;
+    color: #2DE3B1;
+
+    text-shadow:
+            0 0 5px #2DE3B1,
+            0 0 10px #2DE3B1,
+            0 0 20px #25C99A;
+}
+.logo {
+    margin: 0;
+    font-size: 30px;
+    color: #FFFFFF;
+    line-height: 1.1;
+}
+
+.logo span{
+    color:#55A8FF;
+}
+.header_title p {
+    margin: 0;
+    font-size: var(--sizeauxilian);
+    color: var(--colorauxiliary);
+}
+
+/*Form*/
+/*titulo fixo do sidebar*/
+.cotainer{
+    border: 1px solid #29435C;
+    border-radius: var(--bordas-cards);
+}
+.form-group{
+    display: flex;
+    border: 1px solid #29435C;
+    border-radius: var(--bordas-cards);
+    padding: var(--paddingExt);
+}
+.formtitle{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-left: 10px;
+}
+.formtitle h2{
+    font-size: 16px;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin: 0;
+
+}
+.formtitle p{
+    font-size: var(--sizeauxilian);
+    color:var(--colortitlesecondary);
+    margin: 0;
+}
+.form-group i {
+    color: #55A8FF;
+    font-size: 21px;
+    align-self: center;
+}
+.box-upload{
+    border: 1px solid #29435C;
+    border-radius: var(--bordas-cards);
+}
+.sidebar-upload summary h3{
+    font-size: 14px;
+    color: #FFFFFF;
+    margin: 0;
+
+}
+.sidebar-upload summary span{
+    color: var(--colorauxiliary)
+}
+.icon-upload{
+    color:#55A8FF;
+    font-size: 18px;
+    margin: 0;
+
+}
+
+.sidebar-accordion summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 16px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.sidebar-accordion summary::-webkit-details-marker {
+    display: none;
+}
+
+.sidebar-accordion summary .arrow {
+    color: #FFFFFF;
+    font-size: 16px;
+    margin-left: auto;
+    transition: transform 0.2s ease;
+}
+
+.sidebar-accordion[open] summary .arrow {
+    transform: rotate(180deg);
+}
+
+/*campos de upload*/
+.upload-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+
+    padding: 16px;
+    border-top: 1px solid #29435C;
+}
+
+.upload-content > p {
+    color: #A8BED2;
+    font-size: 12px;
+    margin-bottom: 16px;
+}
+
+.upload-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.upload-item input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 110px;
+    padding: 12px 8px;
+
+    background-color: #1D3C59;
+    border: 1px dashed #42617C;
+    border-radius: 8px;
+
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.upload-label:hover {
+    border-color: #55A8FF;
+    background-color: #244865;
+}
+
+.upload-label i {
+    color: #55A8FF;
+    font-size: 26px;
+}
+
+.upload-label strong {
+    color: #FFFFFF;
+    font-size: 12px;
+}
+
+.upload-label span {
+    color: #A8BED2;
+    font-size: 10px;
+}
+
+.upload-item input[type="file"]:focus-visible + .upload-label {
+    outline: 2px solid #55A8FF;
+    outline-offset: 3px;
+}
+
+/*animação da graveta de importar dados*/
+
+.sidebar-accordion::details-content {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease, content-visibility 0.3s allow-discrete;
+}
+
+.sidebar-accordion[open]::details-content {
+    height: auto;
+}
+
+@supports (interpolate-size: allow-keywords) {
+    .sidebar-accordion {
+        interpolate-size: allow-keywords;
+    }
+}
+
+/*box de consumo por hora*/
+
+.box-hours {
+    border: 1px solid #29435C;
+    border-radius: var(--bordas-cards);
+}
+.sidebar-hours summary i{
+    color: #55A8FF;
+    font-size: 18px;
+    margin: 0;
+}
+.sidebar-hours summary h3{
+    font-size: 14px;
+    color: #FFFFFF;
+}
+.sidebar-hours summary span{
+    color: var(--colorauxiliary);
+}
+
+.inputs-container p{
+    color: var(--colorauxiliary);
+    font-size: 12px;
+     margin-left: 10px;
+}
+.hours-grid{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin: 10px;
+}
+.input-hours {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.input-hours label {
+    color: #A8BED2;
+    font-size: 12px;
+}
+.input-hours input {
+    width: 100%;
+    min-width: 0;
+    height: 40px;
+    padding: 8px;
+
+    background-color: #FFFFFF;
+    border: 1px solid #C8D8E6;
+    border-radius: 6px;
+    color: black;
+    text-align: center;
+}
+.input-hours{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+/*setinhas do input*/
+/* Chrome, Edge e Safari */
+.input-hours input::-webkit-inner-spin-button,
+.input-hours input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.input-hours input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+.input-hours input.fora-ponta {
+    border-left: 4px solid #25C99A;
+}
+
+.input-hours input.intermediaria {
+    border-left: 4px solid #F5BC42;
+}
+
+.input-hours input.ponta {
+    border-left: 4px solid #F46368;
+}
+
+/*bandeiras-Consumo*/
+
+.hours-legend{
+    padding: 8px;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 4px;
+}
+.legend-dot {
+    margin-left: 4px;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.legend-dot.fora {
+    background-color: #25C99A;
+}
+
+.legend-dot.inter {
+    background-color: #F5BC42;
+}
+
+.legend-dot.ponta {
+    background-color: #F46368;
+}
+
+.legend-item p {
+    color: #A8BED2;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+/* box de tarifas de energia*/
+
+.container-bandeiras{
+    border: 1px solid #29435C;
+    border-radius: var(--bordas-cards);
+}
+.sidebartarifas summary h3 {
+    color: #FFFFFF;
+    font-size: 14px;
+    margin: 0;
+}
+.sidebartarifas summary span {
+    color: #A8BED2;
+}
+.icon-sifao{
+    color: #55A8FF;
+    margin-left:5px;
+    font-size: 18px;
+}
+
+.container-Tarifas{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+.input-tarifarias {
+    margin: 8px;
+}
+.input-tarifarias label {
+    color: #A8BED2;
+    font-size: 12px;
+    font-weight: bold;
+}
+.input-tarifarias input {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+
+    background-color: #FFFFFF;
+    color: #102B53;
+
+    border: 1px solid #29435C;
+    border-radius: 8px;
+    font-size: 14px;
+}
+.tariff-input:focus {
+    outline: 2px solid #55A8FF;
+    outline-offset: 1px;
+}
+
+/*setinhas do input*/
+/* Chrome, Edge e Safari */
+.input-tarifarias input::-webkit-inner-spin-button,
+.input-tarifarias input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.input-tarifarias input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/*campo de tarifas*/
+.container-valores {
+    border: 1px solid #29435C;
+    border-radius: var(--bordas-cards);
+}
+
+.sidebarvalores summary h3{
+    color: #FFFFFF;
+    font-size: 14px;
+    margin: 0;
+}
+.icon-flag{
+    color: #55A8FF;
+    font-size: 18px;
+    margin:0;
+}
+.valores-grid{
+    display: flex;
+    flex-direction: row;
+    padding: 4px;
+    gap: 4px;
+}
+.input-valor input{
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+
+    background-color: #FFFFFF;
+    color: #102B53;
+
+    border: 1px solid #29435C;
+    border-radius: 8px;
+    font-size: 18px;
+}
+.input-valor label{
+    color: #A8BED2;
+    font-size: 12px;
+}
+
+.input-valor input.campo-verde{
+    border-left: 4px solid #25C99A;
+}
+.input-valor input.campo-amarelo{
+    border-left: 4px solid #F5BC42;
+}
+.input-valor input.campo-vermelho1{
+    border-left: 4px solid #F46368;
+}
+.input-valor input.campo-vermelho2{
+    border-left: 4px solid #F46368;
+}
+
+/*setinhas do input*/
+.input-valor input::-webkit-inner-spin-button,
+.input-valor input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.input-valor input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/*Campo submit*/
+.icon-calandar{
+    color: #55A8FF;
+    margin: 0;
+}
+.container-submit{
+    border: 1px solid #29435C;
+    border-radius: var(--bordas-cards);
+}
+.sidebarsubmit summary h3{
+    color: #FFFFFF;
+    font-size: 14px;
+    margin: 0;
+}
+.dias{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-left: 40px ;
+    margin-right: 40px ;
+}
+.dias label {
+    color: #A8BED2;
+    font-size: 12px;
+}
+.dias input{
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+
+    background-color: #FFFFFF;
+    color: #102B53;
+
+    border: 1px solid #29435C;
+    border-radius: 8px;
+    font-size: 14px;
+}
+.container-btn{
+    margin: 10px;
+}
+.btn-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    height: 48px;
+    margin-top: 16px;
+
+    background-color: #2DE3B1;
+    color: #0C2038;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-submit:hover {
+    background-color: #25C99A;
+}

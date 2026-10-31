@@ -1,0 +1,22 @@
+:root{
+    /*Cores de fundo*/
+    --side-barheader: #0C2038;
+    --backgroundColor: #F3F8FD;
+
+    /*margin e padding*/
+    --paddingExt: 12px;
+
+    /*Bordas e Cards*/
+    --bordas-cards: 10px;
+
+    /*font Text e cores*/
+    /* titulos */
+    --titleprimary: 24px;
+    /*titulo segundarios*/
+    --titlesecondary: 18px;
+    --colortitlesecondary:  #A8BED2;
+
+    /*paragrafos e auxiliares*/
+    --sizeauxilian: 11px;
+    --colorauxiliary: #A8BED2;
+}

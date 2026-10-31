@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EnerSim</title>
+    <link rel="stylesheet" href="Css/variaveis.css">
+    <link rel="stylesheet" href="Css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+<body>
+    <aside class="sidebar">
+        <header class="sidebar-header">
+            <i class="fa-solid fa-bolt logo-icon" aria-hidden="true"></i>
+            <div class="header_title">
+                <h1 class="logo">
+                    Ener<span>Sim</span>
+                </h1>
+                <p>Simulador de Conta de Energia</p>
+            </div>
+        </header>
+        <div class="cotainer">
+            <form class="sidebar-form">
+                <div class="form-group">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <div class="formtitle">
+                        <h2>Parâmetros da Simulação</h2>
+                        <p>Configure os dados para calcular sua conta.</p>
+                    </div>
+                </div>
+                <div class="box-upload">
+                    <details class="sidebar-accordion sidebar-upload">
+                        <summary>
+                            <i class="fa-solid fa-upload icon-upload" aria-hidden="true"></i>
+
+                            <h3>1. Importar dados <span>(opcional)</span></h3>
+
+                            <i class="fa-solid fa-chevron-down arrow"
+                               aria-hidden="true"></i>
+                        </summary>
+                        <div class="upload-content">
+
+                            <p>Carregue um arquivo para preencher os dados.</p>
+
+                            <div class="upload-options">
+
+                                <div class="upload-item">
+                                    <input
+                                            type="file"
+                                            id="json-file"
+                                            accept=".json,application/json"
+                                    >
+
+                                    <label for="json-file" class="upload-label">
+                                        <i class="fa-solid fa-file-code"></i>
+                                        <strong>Importar JSON</strong>
+                                        <span>Configuração completa</span>
+                                    </label>
+                                </div>
+
+                                <div class="upload-item">
+                                    <input
+                                            type="file"
+                                            id="csv-file"
+                                            accept=".csv,text/csv"
+                                    >
+
+                                    <label for="csv-file" class="upload-label">
+                                        <i class="fa-solid fa-file-csv"></i>
+                                        <strong>Importar CSV</strong>
+                                        <span>Consumo por hora</span>
+                                    </label>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </details>
+                </div>
+                <div class="box-hours">
+                    <details class=" sidebar-accordion sidebar-hours">
+                        <summary>
+                            <i class="fa-regular fa-clock icon-clock"></i>
+
+                            <h3>2.Consumo por hora<span>(kWh)</span></h3>
+
+                            <i class="fa-solid fa-chevron-down arrow"
+                               aria-hidden="true"></i>
+                        </summary>
+                        <div class="inputs-container">
+                            <p>Preencha o consumo de cada hora do dia</p>
+                            <div class="hours-grid">
+                                <div class="input-hours">
+                                    <label for="inputkwh-0">00h</label>
+                                    <input type="number" id="inputkwh-0" name="inputkwh0" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-1">01h</label>
+                                    <input type="number" id="inputkwh-1" name="inputkwh1" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-2">02h</label>
+                                    <input type="number" id="inputkwh-2" name="inputkwh2" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-3">03h</label>
+                                    <input type="number" id="inputkwh-3" name="inputkwh3" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-4">04h</label>
+                                    <input type="number" id="inputkwh-4" name="inputkwh4" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-5">05h</label>
+                                    <input type="number" id="inputkwh-5" name="inputkwh5" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-6">06h</label>
+                                    <input type="number" id="inputkwh-6" name="inputkwh6" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-7">07h</label>
+                                    <input type="number" id="inputkwh-7" name="inputkwh7" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-8">08h</label>
+                                    <input type="number" id="inputkwh-8" name="inputkwh8" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-9">09h</label>
+                                    <input type="number" id="inputkwh-9" name="inputkwh9" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-10">10h</label>
+                                    <input type="number" id="inputkwh-10" name="inputkwh10" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-11">11h</label>
+                                    <input type="number" id="inputkwh-11" name="inputkwh11" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-12">12h</label>
+                                    <input type="number" id="inputkwh-12" name="inputkwh12" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-13">13h</label>
+                                    <input type="number" id="inputkwh-13" name="inputkwh13" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-14">14h</label>
+                                    <input type="number" id="inputkwh-14" name="inputkwh14" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-15">15h</label>
+                                    <input type="number" id="inputkwh-15" name="inputkwh15" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-16">16h</label>
+                                    <input type="number" id="inputkwh-16" name="inputkwh16" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-17">17h</label>
+                                    <input type="number" id="inputkwh-17" name="inputkwh17" class="intermediaria" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-18">18h</label>
+                                    <input type="number" id="inputkwh-18" name="inputkwh18" class="ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-19">19h</label>
+                                    <input type="number" id="inputkwh-19" name="inputkwh19" class="ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-20">20h</label>
+                                    <input type="number" id="inputkwh-20" name="inputkwh20" class="ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-21">21h</label>
+                                    <input type="number" id="inputkwh-21" name="inputkwh21" class="intermediaria" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-22">22h</label>
+                                    <input type="number" id="inputkwh-22" name="inputkwh22" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+
+                                <div class="input-hours">
+                                    <label for="inputkwh-23">23h</label>
+                                    <input type="number" id="inputkwh-23" name="inputkwh23" class="fora-ponta" min="0" step="0.01" value="0" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hours-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot fora"></span>
+                                <p>Fora de ponta (0h-17h, 22h-23h)</p>
+                            </div>
+
+                            <div class="legend-item">
+                                <span class="legend-dot inter"></span>
+                                <p>Intermediária (17h-18h, 21h)</p>
+                            </div>
+
+                            <div class="legend-item">
+                                <span class="legend-dot ponta"></span>
+                                <p>Ponta (18h-21h)</p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                <div class="container-bandeiras">
+                    <details class="sidebar-accordion sidebartarifas">
+                        <summary>
+                            <i class="fa-solid fa-dollar-sign icon-sifao"></i>
+
+                            <h3>3.Tarifas de energia<span>(R$kWh)</span></h3>
+
+                            <i class="fa-solid fa-chevron-down arrow"
+                            aria-hidden="true"></i>
+                        </summary>
+                        <div class="container-Tarifas">
+                            <div class="input-tarifarias">
+                                <label for="convencional">Convencial</label>
+                                <input type="number" id="convencional" name="convencional" value="0" required>
+                            </div>
+                            <div class="input-tarifarias">
+                                <label for="Fora de ponta">Branca - Fora de ponta</label>
+                                <input type="number" id="Fora de ponta" name="fora-de-ponta" value="0" required>
+                            </div>
+                            <div class="input-tarifarias">
+                                <label for="intermediaria">Branca - intermediária</label>
+                                <input type="number" id="intermediaria" name="inter" value="0" required>
+                            </div>
+                            <div class="input-tarifarias">
+                                <label for="ponta">Branca - Ponta</label>
+                                <input type="number" id="ponta" name="ponta" value="0" required>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                <div class="container-valores">
+                    <details class="sidebar-accordion sidebarvalores">
+                        <summary>
+                            <i class="fa-regular fa-flag icon-flag"></i>
+                            <h3>4.Bandeiras tarifárias <span>(R$/100 kWh)</span></h3>
+                            <i class="fa-solid fa-chevron-down arrow" aria-hidden="true"></i>
+                        </summary>
+                        <div class="valores-grid">
+                            <div class="input-valor">
+                                <label for="verde">Verde</label>
+                                <input type="number"  class="campo-verde" id="verde" name="verde" value="0" required>
+                            </div>
+                            <div class="input-valor">
+                                <label for="amarelo">Amarelo</label>
+                                <input type="number"  class="campo-amarelo" id="amarelo" name="amarelo" value="0" required>
+                            </div>
+                            <div class="input-valor">
+                                <label for="vermelha1">Vemelha 1</label>
+                                <input type="number"  class="campo-vermelho1" id="vermelha1" name="azul" value="0" required>
+                            </div>
+                            <div class="input-valor">
+                                <label for="vermelha2">Vemelha 2</label>
+                                <input type="number"  class="campo-vermelho2" id="vermelha2" name="azul" value="0" required>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                <div class="container-submit">
+                    <details class="sidebar-accordion sidebarsubmit">
+                        <summary>
+                            <i class="fa-regular fa-calendar icon-calandar"></i>
+                            <h3>5.Periodo de simulação</h3>
+                            <i class="fa-solid fa-chevron-down arrow" aria-hidden="true"></i>
+                        </summary>
+                        <div class="container-day">
+                            <div class="dias">
+                                <label for="dia">Dias do mês</label>
+                                <input type="number"  id="dia" name="dia" min="28" max="31" value="30" required>
+                            </div>
+                        </div>
+                        <div class="container-btn">
+                            <button type="submit" class="btn-submit">
+                                <i class="fa-solid fa-calculator"></i>
+                                Calcular Simulação</button>
+                        </div>
+                    </details>
+                </div>
+            </form>
+        </div>
+    </aside>
+    <script src="scripts/script.js"></script>
+</body>
+</html>

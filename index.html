@@ -10,7 +10,8 @@
 
 </head>
 <body>
-    <aside class="sidebar">
+    <div class="app-layout">
+        <aside class="sidebar">
         <header class="sidebar-header">
             <i class="fa-solid fa-bolt logo-icon" aria-hidden="true"></i>
             <div class="header_title">
@@ -30,7 +31,7 @@
                     </div>
                 </div>
                 <div class="box-upload">
-                    <details class="sidebar-accordion sidebar-upload">
+                    <details class="sidebar-accordion sidebar-upload" open>
                         <summary>
                             <i class="fa-solid fa-upload icon-upload" aria-hidden="true"></i>
 
@@ -79,7 +80,7 @@
                     </details>
                 </div>
                 <div class="box-hours">
-                    <details class=" sidebar-accordion sidebar-hours">
+                    <details class=" sidebar-accordion sidebar-hours" >
                         <summary>
                             <i class="fa-regular fa-clock icon-clock"></i>
 
@@ -215,53 +216,53 @@
                         <div class="hours-legend">
                             <div class="legend-item">
                                 <span class="legend-dot fora"></span>
-                                <p>Fora de ponta (0h-17h, 22h-23h)</p>
+                                <p>Fora de ponta (00h–16h, 22h–23h)</p>
                             </div>
 
                             <div class="legend-item">
                                 <span class="legend-dot inter"></span>
-                                <p>Intermediária (17h-18h, 21h)</p>
+                                <p>Intermediária (17h e 21h)</p>
                             </div>
 
                             <div class="legend-item">
                                 <span class="legend-dot ponta"></span>
-                                <p>Ponta (18h-21h)</p>
+                                <p>Ponta (18h–20h)</p>
                             </div>
                         </div>
                     </details>
                 </div>
                 <div class="container-bandeiras">
-                    <details class="sidebar-accordion sidebartarifas">
+                    <details class="sidebar-accordion sidebartarifas" open>
                         <summary>
                             <i class="fa-solid fa-dollar-sign icon-sifao"></i>
 
-                            <h3>3.Tarifas de energia<span>(R$kWh)</span></h3>
+                            <h3>3.Tarifas de energia<span>(R$/kWh)</span></h3>
 
                             <i class="fa-solid fa-chevron-down arrow"
                             aria-hidden="true"></i>
                         </summary>
                         <div class="container-Tarifas">
                             <div class="input-tarifarias">
-                                <label for="convencional">Convencial</label>
-                                <input type="number" id="convencional" name="convencional" value="0" required>
+                                <label for="convencional">Convencional</label>
+                                <input type="number" id="convencional" name="convencional" min="0" step="0.0001" value="0" required>
                             </div>
                             <div class="input-tarifarias">
-                                <label for="Fora de ponta">Branca - Fora de ponta</label>
-                                <input type="number" id="Fora de ponta" name="fora-de-ponta" value="0" required>
+                                <label for="fora-ponta">Branca - Fora de ponta</label>
+                                <input type="number" id="fora-ponta" name="fora-de-ponta" min="0" step="0.0001" value="0" required>
                             </div>
                             <div class="input-tarifarias">
                                 <label for="intermediaria">Branca - intermediária</label>
-                                <input type="number" id="intermediaria" name="inter" value="0" required>
+                                <input type="number" id="intermediaria" name="inter" min="0" step="0.0001" value="0" required>
                             </div>
                             <div class="input-tarifarias">
                                 <label for="ponta">Branca - Ponta</label>
-                                <input type="number" id="ponta" name="ponta" value="0" required>
+                                <input type="number" id="ponta" name="ponta" min="0" step="0.0001" value="0" required>
                             </div>
                         </div>
                     </details>
                 </div>
                 <div class="container-valores">
-                    <details class="sidebar-accordion sidebarvalores">
+                    <details class="sidebar-accordion sidebarvalores" open>
                         <summary>
                             <i class="fa-regular fa-flag icon-flag"></i>
                             <h3>4.Bandeiras tarifárias <span>(R$/100 kWh)</span></h3>
@@ -270,28 +271,28 @@
                         <div class="valores-grid">
                             <div class="input-valor">
                                 <label for="verde">Verde</label>
-                                <input type="number"  class="campo-verde" id="verde" name="verde" value="0" required>
+                                <input type="number"  class="campo-verde" id="verde" name="verde" min="0" step="0.0001" value="0" required>
                             </div>
                             <div class="input-valor">
                                 <label for="amarelo">Amarelo</label>
-                                <input type="number"  class="campo-amarelo" id="amarelo" name="amarelo" value="0" required>
+                                <input type="number"  class="campo-amarelo" id="amarelo" name="amarelo" min="0" step="0.0001" value="0" required>
                             </div>
                             <div class="input-valor">
-                                <label for="vermelha1">Vemelha 1</label>
-                                <input type="number"  class="campo-vermelho1" id="vermelha1" name="azul" value="0" required>
+                                <label for="vermelha1">Vermelha 1</label>
+                                <input type="number"  class="campo-vermelho1" id="vermelha1" name="vermelha1" min="0" step="0.0001" value="0" required>
                             </div>
                             <div class="input-valor">
-                                <label for="vermelha2">Vemelha 2</label>
-                                <input type="number"  class="campo-vermelho2" id="vermelha2" name="azul" value="0" required>
+                                <label for="vermelha2">Vermelha 2</label>
+                                <input type="number"  class="campo-vermelho2" id="vermelha2" name="vermelha2" min="0" step="0.0001" value="0" required>
                             </div>
                         </div>
                     </details>
                 </div>
                 <div class="container-submit">
-                    <details class="sidebar-accordion sidebarsubmit">
+                    <details class="sidebar-accordion sidebarsubmit" open>
                         <summary>
                             <i class="fa-regular fa-calendar icon-calandar"></i>
-                            <h3>5.Periodo de simulação</h3>
+                            <h3>5.Período de simulação</h3>
                             <i class="fa-solid fa-chevron-down arrow" aria-hidden="true"></i>
                         </summary>
                         <div class="container-day">
@@ -310,6 +311,150 @@
             </form>
         </div>
     </aside>
+
+        <div class="container-main">
+            <header class="main-header">
+                <nav class="header-nav" aria-label="Navegação principal">
+                    <a href="#simulacao">
+                        <i class="fa-solid fa-calculator" aria-hidden="true"></i>
+                        Simulação
+                    </a>
+                    <a href="#analises">
+                        <i class="fa-solid fa-chart-column" aria-hidden="true"></i>
+                        Análises
+                    </a>
+                    <a href="#educacional">
+                        <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+                        Educacional
+                    </a>
+                    <a href="#sobre">
+                        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                        Sobre
+                    </a>
+                </nav>
+            </header>
+
+            <main class="main">
+                <section class="results-section" id="simulacao">
+                    <div class="results-grid">
+
+                        <!-- Consumo diário -->
+                        <article class="result-card">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Consumo diário</h3>
+                                <output id="consumo-diario">0,00 kWh</output>
+                            </div>
+                        </article>
+
+                        <!-- Consumo mensal -->
+                        <article class="result-card">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Consumo mensal</h3>
+                                <output id="consumo-mensal">0,00 kWh</output>
+                            </div>
+                        </article>
+
+                        <!-- Conta convencional -->
+                        <article class="result-card">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-dollar-sign" aria-hidden="true"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Conta convencional</h3>
+                                <output id="custo-convencional">R$ 0,00</output>
+                            </div>
+                        </article>
+
+                        <!-- Conta branca -->
+                        <article class="result-card">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Conta branca</h3>
+                                <output id="custo-branca">R$ 0,00</output>
+                            </div>
+                        </article>
+
+                    </div>
+                </section>
+                <section class="charts-section" id="analises">
+                    <div class="charts-grid">
+                        <!-- Gráfico 1 -->
+                        <div class="charts-card1">
+                            <figure class="chart-card">
+                                <figcaption>
+                                    <div class="icon-graphs">
+                                        <i class="fa-solid fa-chart-simple"></i>
+                                    </div>
+                                    Perfil de consumo diário
+                                </figcaption>
+
+                                <ul class="chart-legend" aria-label="Faixas tarifárias">
+                                    <li><span class="legend-dot fora" aria-hidden="true"></span>Fora de ponta</li>
+                                    <li><span class="legend-dot inter" aria-hidden="true"></span>Intermediária</li>
+                                    <li><span class="legend-dot ponta" aria-hidden="true"></span>Ponta</li>
+                                </ul>
+                                <div class="chart-box">
+                                    <canvas id="chart-hourly" role="img" aria-label="Consumo de energia por hora, em kWh" aria-describedby="chart-demo-note"></canvas>
+                                </div>
+                            </figure>
+                        </div>
+                        <div class="graphs-grid">
+                            <div class="charts-cardpie">
+                                <figure class="chart-card">
+                                    <figcaption>
+                                        <div class="icon-graphs">
+                                            <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+                                        </div>
+                                        Consumo por posto tarifário
+                                    </figcaption>
+                                    <div class="chart-tarifario">
+                                        <div class="pie-canvas-box">
+                                            <canvas id="chart-tarifario" role="img" aria-label="Distribuição do consumo por posto tarifário"></canvas>
+                                        </div>
+                                        <div class="text-box2">
+                                            <ul class="chart2-legend">
+                                                <li><span class="legend-dot fora" aria-hidden="true"></span>Fora de ponta</li>
+                                                <li><span class="legend-dot inter" aria-hidden="true"></span>Intermediária</li>
+                                                <li><span class="legend-dot ponta" aria-hidden="true"></span>Ponta</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </figure>
+                            </div>
+                        <div class="box-comparacao">
+                            <figure class="chart-card">
+                                <figcaption>
+                                    <div class="icon-graphs">
+                                        <i class="fa-solid fa-flag"></i>
+                                    </div>
+                                    Consumo por posto tarifário
+                                </figcaption>
+                                <div class="chart-comparacao">
+                                    <canvas></canvas>
+                                </div>
+                                <div class="text-box2">
+
+                                </div>
+                            </figure>
+                        </div>
+                        </div>
+                    </div>
+
+                </section>
+
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="scripts/chart.js"></script>
     <script src="scripts/script.js"></script>
 </body>
 </html>

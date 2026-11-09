@@ -153,6 +153,115 @@ const graficoTarifca = new Chart(canvasPie, {
 
 // gráfico de Comparação de custos mensais 
 
+const canvasComparacao = document.getElementById("chart-comparacao");
+
+const formatoMoedaComparacao = new Intl.NumberFormat("pt-BR", {
+
+    style: "currency",
+
+    currency: "BRL"
+
+});
+
+const graficoComparacao = new Chart(canvasComparacao, {
+
+    type: "bar",
+
+    data: {
+
+        labels: ["Convencional", "Branca"],
+
+        datasets: [{
+
+            label: "Custo mensal",
+
+            data: [180, 150],
+
+            backgroundColor: ["#0067FF", "#25C99A"],
+
+            borderRadius: 4,
+
+            maxBarThickness: 48
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        locale: "pt-BR",
+
+        plugins: {
+
+            legend: {
+
+                display: false
+
+            },
+
+            tooltip: {
+
+                callbacks: {
+
+                    label: (context) =>
+
+                        formatoMoedaComparacao.format(context.parsed.y)
+
+                }
+
+            }
+
+        },
+
+        scales: {
+
+            x: {
+
+                grid: {
+
+                    display: false
+
+                },
+
+                ticks: {
+
+                    color: "#52677D"
+
+                }
+
+            },
+
+            y: {
+
+                beginAtZero: true,
+
+                grid: {
+
+                    color: "#E8EEF4"
+
+                },
+
+                ticks: {
+
+                    color: "#52677D",
+
+                    callback: (valor) =>
+
+                        formatoMoedaComparacao.format(valor)
+
+                }
+
+            }
+
+        }
+
+    }
+
+});
 
 
 

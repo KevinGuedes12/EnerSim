@@ -151,4 +151,8 @@ const graficoTarifca = new Chart(canvasPie, {
     }
 });
 
+// gráfico de Comparação de custos mensais 
+
+
+
 

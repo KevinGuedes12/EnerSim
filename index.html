@@ -22,7 +22,7 @@
             </div>
         </header>
         <div class="cotainer">
-            <form class="sidebar-form">
+            <form class="sidebar-form" id="Formulario">
                 <div class="form-group">
                     <i class="fa-solid fa-pen-to-square"></i>
                     <div class="formtitle">
@@ -52,28 +52,12 @@
                                             id="json-file"
                                             accept=".json,application/json"
                                     >
-
                                     <label for="json-file" class="upload-label">
                                         <i class="fa-solid fa-file-code"></i>
                                         <strong>Importar JSON</strong>
                                         <span>Configuração completa</span>
                                     </label>
                                 </div>
-
-                                <div class="upload-item">
-                                    <input
-                                            type="file"
-                                            id="csv-file"
-                                            accept=".csv,text/csv"
-                                    >
-
-                                    <label for="csv-file" class="upload-label">
-                                        <i class="fa-solid fa-file-csv"></i>
-                                        <strong>Importar CSV</strong>
-                                        <span>Consumo por hora</span>
-                                    </label>
-                                </div>
-
                             </div>
 
                         </div>
@@ -248,11 +232,11 @@
                             </div>
                             <div class="input-tarifarias">
                                 <label for="fora-ponta">Branca - Fora de ponta</label>
-                                <input type="number" id="fora-ponta" name="fora-de-ponta" min="0" step="0.0001" value="0" required>
+                                <input type="number" id="fora-ponta" name="foraPonta" min="0" step="0.0001" value="0" required>
                             </div>
                             <div class="input-tarifarias">
                                 <label for="intermediaria">Branca - intermediária</label>
-                                <input type="number" id="intermediaria" name="inter" min="0" step="0.0001" value="0" required>
+                                <input type="number" id="intermediaria" name="intermediaria" min="0" step="0.0001" value="0" required>
                             </div>
                             <div class="input-tarifarias">
                                 <label for="ponta">Branca - Ponta</label>
@@ -419,35 +403,47 @@
                                         <div class="pie-canvas-box">
                                             <canvas id="chart-tarifario" role="img" aria-label="Distribuição do consumo por posto tarifário"></canvas>
                                         </div>
-                                        <div class="text-box2">
+                                        <div class="tariff-legend-box" aria-label="Legenda do consumo por posto tarifário">
                                             <ul class="chart2-legend">
-                                                <li><span class="legend-dot fora" aria-hidden="true"></span>Fora de ponta</li>
-                                                <li><span class="legend-dot inter" aria-hidden="true"></span>Intermediária</li>
-                                                <li><span class="legend-dot ponta" aria-hidden="true"></span>Ponta</li>
+                                                <li>
+                                                    <span class="legend-dot fora" aria-hidden="true"></span>
+                                                    <div>
+                                                        <h3>Fora de ponta</h3>
+                                                        <p id="legenda-fora">0,00 kWh (0,00%)</p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <span class="legend-dot inter" aria-hidden="true"></span>
+                                                    <div>
+                                                        <h3>Intermediária</h3>
+                                                        <p id="legenda-inter">0,00 kWh (0,00%)</p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <span class="legend-dot ponta" aria-hidden="true"></span>
+                                                    <div>
+                                                        <h3>Ponta</h3>
+                                                        <p id="legenda-ponta">0,00 kWh (0,00%)</p>
+                                                    </div>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </figure>
                             </div>
-                        <<div class="box-comparacao">
-                              <figure class="chart-card">
-                                  <figcaption>
-                                     <div class="icon-graphs">
-                                          <i class="fa-solid fa-flag" aria-hidden="true"></i>
-                                     </div>
-                                     Comparação de custos mensais
+                        <div class="box-comparacao">
+                            <figure class="chart-card">
+                                <figcaption>
+                                    <div class="icon-graphs">
+                                        <i class="fa-solid fa-flag" aria-hidden="true"></i>
+                                    </div>
+                                    Comparação de custos mensais
                                 </figcaption>
                                 <div class="chart-comparacao">
-                                     <canvas
-                                id="chart-comparacao"
-                                role="img"
-                                aria-label="Comparação dos custos mensais entre tarifa convencional e tarifa branca">
+                                    <canvas id="chart-comparacao" role="img" aria-label="Comparação dos custos mensais entre tarifa convencional e tarifa branca">
                                     </canvas>
                                 </div>
                                 <div class="text-box2"></div>
-                                </figure>
-                                </div>
-                              </div>
                             </figure>
                         </div>
                         </div>
@@ -456,8 +452,7 @@
             </main>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="scripts/chart.js"></script>
-    <script src="scripts/script.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="scripts/main.js"></script>
 </body>
 </html>

@@ -94,7 +94,6 @@ input, button, select, textarea { font: inherit; }
     scrollbar-width: none;
     height: auto;
     background: var(--side-barheader);
-    border-radius:var(--bordas-cards);
     padding: var(--paddingExt);
 }
 
@@ -235,9 +234,7 @@ input, button, select, textarea { font: inherit; }
 }
 
 .upload-options {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
+    max-width: 100%;
 }
 
 .upload-item input[type="file"] {
@@ -643,7 +640,7 @@ input, button, select, textarea { font: inherit; }
     min-height: 64px;
     padding: 16px 24px;
     background-color: #0C2038;
-    border-radius: 12px 12px 0 0;
+
 }
 /*navegação-header*/
 .header-nav{
@@ -680,12 +677,17 @@ input, button, select, textarea { font: inherit; }
     overflow-y: auto;
     scroll-behavior: smooth;
     scroll-padding-top: 16px;
+    scrollbar-width: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
     .main {
         scroll-behavior: auto;
     }
+}
+
+.main::-webkit-scrollbar {
+    display: none;
 }
 .results-grid{
     display: grid;
@@ -822,6 +824,7 @@ input, button, select, textarea { font: inherit; }
     margin-top: 12px;
     padding: 0;
     list-style: none;
+    margin: 0;
     color: #52677D;
     font-size: 13px;
 }
@@ -856,11 +859,9 @@ input, button, select, textarea { font: inherit; }
     padding: 10px;
 }
 .chart-tarifario{
-    display: grid;
-    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+    display: flex;
     align-items: center;
-    gap: 16px;
-    margin-top: 20px;
+
 }
 
 .charts-cardpie,
@@ -885,9 +886,17 @@ input, button, select, textarea { font: inherit; }
     min-width: 0;
     width: 100%;
     aspect-ratio: 1;
+    max-width: 220px;
+    justify-self: center;
+}
+
+.tariff-legend-box {
+    min-width: 0;
+    padding: 8px;
 }
 
 .chart2-legend {
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -904,7 +913,22 @@ input, button, select, textarea { font: inherit; }
 }
 
 .chart2-legend .legend-dot {
+    margin: 4px 0 0;
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+
+.chart2-legend h3 {
+    margin: 0 0 4px;
+    color: #102B53;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.chart2-legend p {
     margin: 0;
+    font-weight: 700;
+    line-height: 1.5;
 }
 
 .chart-comparacao {
@@ -930,7 +954,9 @@ input, button, select, textarea { font: inherit; }
 
 @container (max-width: 420px) {
     .chart-tarifario {
-        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+        grid-template-columns: minmax(0, 1fr);
         gap: 10px;
     }
 }
+
+

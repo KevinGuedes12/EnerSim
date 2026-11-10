@@ -1,4 +1,5 @@
 
+import { consumoPorFaixa } from "./calculos.js";
 const canvasConsumo = document.getElementById("chart-hourly");
 const formatoConsumo = new Intl.NumberFormat("pt-BR", {
     minimumFractionDigits: 2,
@@ -11,13 +12,18 @@ const horarios = Array.from(
     (_, hora) => `${String(hora).padStart(2, "0")}h`
 );
 
-// Valores fictícios em kWh, apenas para testar o visual
-const consumo = [
-    0.15, 0.12, 0.10, 0.10, 0.12, 0.18,
-    0.35, 0.55, 0.40, 0.30, 0.28, 0.38,
-    0.48, 0.35, 0.30, 0.40, 0.55, 0.70,
-    1.10, 1.40, 1.20, 0.65, 0.35, 0.20
-];
+
+//função para atualizar dados do grafico de consumo
+let consumo = Array(24).fill(0);
+
+
+export function atualizarGrafico(consumoPorHora){
+    consumo = consumoPorHora;
+    graficoConsumo.data.datasets[0].data = consumo;
+    graficoConsumo.update();
+    atualizarConsumoTarifario(consumoPorHora);
+}
+
 
 // Cores de acordo com o posto tarifário
 const cores = horarios.map((_, hora) => {
@@ -117,20 +123,41 @@ const graficoConsumo = new Chart(canvasConsumo, {
 
 // grafico de Consumo por postos tarifários
 
-const canvasPie = document.getElementById("chart-tarifario");
+const canvasdoughnut = document.getElementById("chart-tarifario");
+const textoCentral = {
+    id: 'textoCentral',
+    afterDraw(chart) {
+        const { ctx, chartArea } = chart;
+        if (!chartArea) return;
+        const centroX = (chartArea.left + chartArea.right) / 2;
+        const centroY = (chartArea.top + chartArea.bottom) / 2;
 
-const consumoPorPosto = consumo.reduce((totais, valor, hora) => {
-    const indice = hora >= 18 && hora <= 20 ? 2 : hora === 17 || hora === 21 ? 1 : 0;
-    totais[indice] += valor;
-    return totais;
-}, [0, 0, 0]);
+        ctx.save();
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
 
-const graficoTarifca = new Chart(canvasPie, {
-    type: "pie",
+        //valor central do doughunt
+        ctx.font = '600 20px Inter, sans-serif';
+        ctx.fillStyle = "#1e293b";
+        const valores = chart.data.datasets[0].data;
+        const total = valores.reduce((soma, valor) => soma + Number(valor), 0);
+        ctx.fillText(total.toFixed(2), centroX, centroY - 10);
+
+        // texto segundario
+        ctx.font = '12px Inter, sans-serif';
+        ctx.fillStyle = "#64748b";
+        ctx.fillText('kWh / dia', centroX, centroY + 15);
+
+        ctx.restore();
+    }
+}
+
+const graficoTarifca = new Chart(canvasdoughnut, {
+    type: "doughnut",
     data: {
         labels: ["Fora de ponta", "Intermediária", "Ponta"],
         datasets: [{
-            data: consumoPorPosto,
+            data: [10, 30, 60],
             backgroundColor: ["#25C99A", "#F5BC42", "#F46368"],
             borderColor: "#FFFFFF",
             borderWidth: 3
@@ -148,7 +175,29 @@ const graficoTarifca = new Chart(canvasPie, {
                 }
             }
         }
-    }
+    },
+    plugins: [textoCentral]
+
 });
 
+function atualizarConsumoTarifario(consumoPorHora) {
+    const totalConsumo = consumoPorFaixa(consumoPorHora);
+    const valores = [
+        totalConsumo.foraPonta,
+        totalConsumo.intermediario,
+        totalConsumo.ponta
+    ];
+    const postos = ["fora", "inter", "ponta"];
 
+    valores.forEach((consumo, indice) => {
+        const percentual = totalConsumo.total > 0
+            ? (consumo / totalConsumo.total) * 100
+            : 0;
+        const legenda = document.getElementById(`legenda-${postos[indice]}`);
+
+        legenda.textContent = `${formatoConsumo.format(consumo)} kWh (${formatoConsumo.format(percentual)}%)`;
+    });
+
+    graficoTarifca.data.datasets[0].data = valores;
+    graficoTarifca.update();
+}

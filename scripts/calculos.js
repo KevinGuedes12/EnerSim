@@ -59,61 +59,25 @@ export function consumoPorFaixa(consumoPorHora){
     //console.log(consumo.total);
     return consumo;
 }
-// função para atualizar e calculo os dados principais da simulação
-export function atualizarResultados(dados){
-
-    // calculo de consumo Diario
-    function calculoDiario(){
-        const outputDiario = document.getElementById("consumo-diario");
-        const total = dados.consumoPorHora.reduce((total, consumo) => total + consumo, 0);
-
-        animarNumero(outputDiario, total, formatarConsumo);
-        return total;
-    }
-    const consumoDiarioTotal = calculoDiario();
-
-    // calculo de consumo mensal
-    function calculoMensal(){
-        const outputMensal = document.getElementById("consumo-mensal");
-        const consumoMensal = consumoDiarioTotal * dados.periodo.dia;
-
-        animarNumero(outputMensal, consumoMensal, formatarConsumo);
-        return consumoMensal;
-    }
-    const consumoMensalTotal = calculoMensal();
-
-    // calculo da conta convencional
-
-    function calculoConvencional(){
-        const outputConvencional = document.getElementById('custo-convencional');
-        const consumoConvecional = consumoMensalTotal * dados.tarifas.convencional;
-
-        animarNumero(outputConvencional, consumoConvecional, formatarDinheiro);
-
-    }
-    calculoConvencional();
-
-    // calculo conta brancad
-
-    function calculoContaBranca(){
-        const consumoFaixa = consumoPorFaixa(dados.consumoPorHora);
-
-        const outputContaBranca = document.getElementById('custo-branca');
-        const consumoContaBranca = (
-            (consumoFaixa.foraPonta * dados.tarifas.foraPonta) +
-            (consumoFaixa.intermediario * dados.tarifas.intermediaria) +
-            (consumoFaixa.ponta * dados.tarifas.ponta)) * dados.periodo.dia;
-
-
-        animarNumero(outputContaBranca, consumoContaBranca, formatarDinheiro);
-    }
-    calculoContaBranca();
+export function calcularResultados(dados) {
+    const faixas = consumoPorFaixa(dados.consumoPorHora);
+    const consumoDiario = faixas.total;
+    const consumoMensal = consumoDiario * dados.periodo.dia;
+    const adicionalBandeira = consumoMensal * dados.bandeiras[dados.bandeiraAtiva] / 100;
+    const custoConvencional = consumoMensal * dados.tarifas.convencional + adicionalBandeira;
+    const custoBranca = (
+        faixas.foraPonta * dados.tarifas.foraPonta +
+        faixas.intermediario * dados.tarifas.intermediaria +
+        faixas.ponta * dados.tarifas.ponta
+    ) * dados.periodo.dia + adicionalBandeira;
+    return { consumoDiario, consumoMensal, custoConvencional, custoBranca };
 }
 
-
-
-
-
-
-
-
+export function atualizarResultados(dados) {
+    const resultados = calcularResultados(dados);
+    animarNumero(document.getElementById("consumo-diario"), resultados.consumoDiario, formatarConsumo);
+    animarNumero(document.getElementById("consumo-mensal"), resultados.consumoMensal, formatarConsumo);
+    animarNumero(document.getElementById("custo-convencional"), resultados.custoConvencional, formatarDinheiro);
+    animarNumero(document.getElementById("custo-branca"), resultados.custoBranca, formatarDinheiro);
+    return resultados;
+}

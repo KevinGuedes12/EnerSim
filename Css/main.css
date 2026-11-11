@@ -954,9 +954,34 @@ input, button, select, textarea { font: inherit; }
 
 @container (max-width: 420px) {
     .chart-tarifario {
-        grid-template-columns: minmax(0, 1fr);
+        flex-direction: column;
         gap: 10px;
     }
 }
 
 
+
+.form-error {
+    margin: 12px;
+    padding: 12px;
+    color: #7f1d1d;
+    background: #fee2e2;
+    border-radius: 8px;
+}
+.bandeira-selecao {
+    display: grid;
+    gap: 6px;
+    padding: 12px;
+    color: #A8BED2;
+}
+.bandeira-selecao select {
+    width: 100%;
+    min-width: 0;
+    padding: 8px;
+    border-radius: 6px;
+}
+@media (max-width: 760px) {
+    .app-layout { grid-template-columns: minmax(0, 1fr); height: auto; overflow: visible; }
+    .sidebar, .container-main, .main { overflow: visible; }
+    .header-nav { gap: 12px 20px; }
+}

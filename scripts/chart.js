@@ -1,5 +1,5 @@
-
 import { consumoPorFaixa } from "./calculos.js";
+
 const canvasConsumo = document.getElementById("chart-hourly");
 const formatoConsumo = new Intl.NumberFormat("pt-BR", {
     minimumFractionDigits: 2,
@@ -141,7 +141,7 @@ const textoCentral = {
         ctx.fillStyle = "#1e293b";
         const valores = chart.data.datasets[0].data;
         const total = valores.reduce((soma, valor) => soma + Number(valor), 0);
-        ctx.fillText(total.toFixed(2), centroX, centroY - 10);
+        ctx.fillText(formatoConsumo.format(total), centroX, centroY - 10);
 
         // texto segundario
         ctx.font = '12px Inter, sans-serif';
@@ -157,7 +157,7 @@ const graficoTarifca = new Chart(canvasdoughnut, {
     data: {
         labels: ["Fora de ponta", "Intermediária", "Ponta"],
         datasets: [{
-            data: [10, 30, 60],
+            data: [0, 0, 0],
             backgroundColor: ["#25C99A", "#F5BC42", "#F46368"],
             borderColor: "#FFFFFF",
             borderWidth: 3
@@ -200,4 +200,65 @@ function atualizarConsumoTarifario(consumoPorHora) {
 
     graficoTarifca.data.datasets[0].data = valores;
     graficoTarifca.update();
+}
+
+// gráfico de Comparação de custos mensais
+const canvasComparacao = document.getElementById("chart-comparacao");
+const formatoMoedaComparacao = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+});
+
+const graficoComparacao = new Chart(canvasComparacao, {
+    type: "bar",
+    data: {
+        labels: ["Convencional", "Branca"],
+        datasets: [{
+            label: "Custo mensal",
+            data: [0, 0],
+            backgroundColor: ["#0067FF", "#25C99A"],
+            borderRadius: 4,
+            maxBarThickness: 48
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        locale: "pt-BR",
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                callbacks: {
+                    label: (context) => formatoMoedaComparacao.format(context.parsed.y)
+                }
+            }
+        },
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                },
+                ticks: {
+                    color: "#52677D"
+                }
+            },
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: "#E8EEF4"
+                },
+                ticks: {
+                    color: "#52677D",
+                    callback: (valor) => formatoMoedaComparacao.format(valor)
+                }
+            }
+        }
+    }
+});
+
+export function atualizarComparacao(resultados) {
+    graficoComparacao.data.datasets[0].data = [resultados.custoConvencional, resultados.custoBranca];
+    graficoComparacao.update();
 }

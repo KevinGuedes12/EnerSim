@@ -252,6 +252,15 @@
                             <h3>4.Bandeiras tarifárias <span>(R$/100 kWh)</span></h3>
                             <i class="fa-solid fa-chevron-down arrow" aria-hidden="true"></i>
                         </summary>
+                        <div class="bandeira-selecao">
+                            <label for="bandeira-ativa">Bandeira aplicada à simulação</label>
+                            <select id="bandeira-ativa" name="bandeiraAtiva">
+                                <option value="verde">Verde</option>
+                                <option value="amarelo">Amarela</option>
+                                <option value="vermelha1">Vermelha 1</option>
+                                <option value="vermelha2">Vermelha 2</option>
+                            </select>
+                        </div>
                         <div class="valores-grid">
                             <div class="input-valor">
                                 <label for="verde">Verde</label>
@@ -285,6 +294,7 @@
                                 <input type="number"  id="dia" name="dia" min="28" max="31" value="30" required>
                             </div>
                         </div>
+                        <p id="erro-dados" class="form-error" role="alert" hidden></p>
                         <div class="container-btn">
                             <button type="submit" class="btn-submit">
                                 <i class="fa-solid fa-calculator"></i>
@@ -386,7 +396,7 @@
                                     <li><span class="legend-dot ponta" aria-hidden="true"></span>Ponta</li>
                                 </ul>
                                 <div class="chart-box">
-                                    <canvas id="chart-hourly" role="img" aria-label="Consumo de energia por hora, em kWh" aria-describedby="chart-demo-note"></canvas>
+                                    <canvas id="chart-hourly" role="img" aria-label="Consumo de energia por hora, em kWh"></canvas>
                                 </div>
                             </figure>
                         </div>
@@ -435,27 +445,24 @@
                             <figure class="chart-card">
                                 <figcaption>
                                     <div class="icon-graphs">
-                                        <i class="fa-solid fa-flag"></i>
+                                        <i class="fa-solid fa-flag" aria-hidden="true"></i>
                                     </div>
-                                    Comparação
+                                    Comparação de custos mensais
                                 </figcaption>
                                 <div class="chart-comparacao">
-                                    <canvas></canvas>
+                                    <canvas id="chart-comparacao" role="img" aria-label="Comparação dos custos mensais entre tarifa convencional e tarifa branca">
+                                    </canvas>
                                 </div>
-                                <div class="text-box2">
-
-                                </div>
+                                <div class="text-box2"></div>
                             </figure>
                         </div>
                         </div>
                     </div>
-
                 </section>
-
             </main>
         </div>
     </div>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="scripts/main.js"></script>
 </body>
 </html>

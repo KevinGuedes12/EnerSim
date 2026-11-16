@@ -113,3 +113,12 @@ export function capturaDadosform(){
 
     return dados;
 }
+
+//função para fecha details do sidebar quando os dados forem carregados
+
+ export function minimizarCampo(){
+    document.querySelectorAll('#Formulario .sidebar-accordion:not(.sidebarsubmit)')
+        .forEach((campo) => {
+            campo.open = false;
+        })
+}

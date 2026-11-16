@@ -985,3 +985,164 @@ input, button, select, textarea { font: inherit; }
     .sidebar, .container-main, .main { overflow: visible; }
     .header-nav { gap: 12px 20px; }
 }
+
+.upload-content .upload-status {
+    margin: 0;
+    padding: 10px;
+    border: 1px solid #25C99A;
+    border-radius: 8px;
+    background: #143E39;
+    color: #C9F9E8;
+    overflow-wrap: anywhere;
+}
+
+/* Cenários no fluxo da sidebar: uma coluna também em telas pequenas. */
+.cenario[hidden], .cenario [hidden] {
+    display: none;
+}
+.cenario {
+    margin-top: 16px;
+    padding: 16px;
+    min-width: 0;
+    border: 1px solid #42617C;
+    border-radius: 10px;
+    color: #fff;
+    background: #102D46;
+}
+.cenario h2 {
+    font-size: 20px;
+    color: #2DE3B1;
+}
+.cenario h3 {
+    font-size: 16px;
+}
+.cenario h4 {
+    font-size: 15px;
+}
+.cenario-opcao {
+    margin-top: 16px;
+}
+.cenario label {
+    display: block;
+    margin: 10px 0 6px;
+    font-size: 13px;
+}
+.cenario input, .cenario select {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 8px;
+    border: 1px solid #C8D8E6;
+    border-radius: 6px;
+    color: #102B53;
+    background: #fff;
+    font-size: 16px;
+}
+.cenario-botao {
+    width: 100%;
+    min-height: 44px;
+    margin-top: 12px;
+    padding: 10px;
+    border: 0;
+    border-radius: 8px;
+    background: #2DE3B1;
+    color: #0C2038;
+    font-weight: 600;
+    white-space: normal;
+}
+.cenario-botao:hover {
+    background: #25C99A;
+}
+.cenario-secundario {
+    border: 1px solid #A8BED2;
+    background: transparent;
+    color: #fff;
+}
+.cenario-secundario:hover {
+    background: #244865;
+}
+.cenario-habitos {
+    margin-top: 16px;
+    border-top: 1px solid #42617C;
+}
+.cenario-habitos summary {
+    padding: 14px 0;
+    cursor: pointer;
+    font-weight: 600;
+}
+.cenario-habito {
+    min-width: 0;
+    margin: 12px 0;
+    padding: 12px;
+    border: 1px solid #42617C;
+    border-radius: 8px;
+}
+.cenario-habito legend {
+    padding: 0 5px;
+    font-weight: 600;
+}
+.cenario-resultado {
+    margin-top: 16px;
+    padding: 12px;
+    background: #163E39;
+    border-radius: 8px;
+}
+.cenario-resultado p {
+    margin: 10px 0;
+    font-size: 13px;
+}
+.cenario-conta {
+    margin-top: 12px;
+}
+.cenario-conta dl div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 12px;
+    font-size: 13px;
+}
+.cenario-conta dd {
+    margin: 0;
+    font-weight: 600;
+}
+.cenario-link {
+    display: inline-block;
+    padding: 10px 0;
+    color: #B2DDFF;
+}
+.cenario :focus-visible {
+    outline: 3px solid #55A8FF;
+    outline-offset: 3px;
+}
+.aviso-base {
+    margin: 12px;
+    color: #F5BC42;
+    font-size: 13px; }
+
+.comparacao-controle {
+    display: grid;
+    gap: 6px;
+    margin-top: 14px;
+    min-width: 0;
+}
+.comparacao-controle label {
+    color: #52677D;
+    font-size: 13px;
+    font-weight: 600;
+}
+.comparacao-controle select {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 1px solid #C8D8E6;
+    border-radius: 8px;
+    background: #F3F8FD;
+    color: #102B53;
+    font-size: 16px;
+}
+.comparacao-controle select:focus-visible {
+    outline: 2px solid #0067FF;
+    outline-offset: 2px;
+}

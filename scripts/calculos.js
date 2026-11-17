@@ -109,6 +109,32 @@ export function atualizarResultados(dados){
     }
     calculoContaBranca();
 }
+// Função para gerar os dados da tabela de consumo por horário
+export function gerarDetalhamentoHorario(dados) {
+    return dados.consumoPorHora.map((consumo, hora) => {
+        let posto;
+        let tarifa;
+
+        if (hora >= 18 && hora < 21) {
+            posto = "Ponta";
+            tarifa = dados.tarifas.ponta;
+        } else if (hora === 17 || hora === 21) {
+            posto = "Intermediária";
+            tarifa = dados.tarifas.intermediaria;
+        } else {
+            posto = "Fora de ponta";
+            tarifa = dados.tarifas.foraPonta;
+        }
+
+        return {
+            hora: `${String(hora).padStart(2, "0")}h`,
+            consumo: consumo,
+            posto: posto,
+            tarifa: tarifa,
+            custo: consumo * tarifa
+        };
+    });
+}
 
 
 

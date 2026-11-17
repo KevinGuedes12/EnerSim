@@ -62,17 +62,20 @@ export function consumoPorFaixa(consumoPorHora){
 // função para atualizar e calculo os dados principais da simulação
 export function atualizarResultados(dados){
 
-    // calculo de consumo Diario
+    // Cálculo do consumo diário
     function calculoDiario(){
         const outputDiario = document.getElementById("consumo-diario");
-        const total = dados.consumoPorHora.reduce((total, consumo) => total + consumo, 0);
+        const total = dados.consumoPorHora.reduce(
+            (total, consumo) => total + consumo, 0
+        );
 
         animarNumero(outputDiario, total, formatarConsumo);
         return total;
     }
+
     const consumoDiarioTotal = calculoDiario();
 
-    // calculo de consumo mensal
+    // Cálculo do consumo mensal
     function calculoMensal(){
         const outputMensal = document.getElementById("consumo-mensal");
         const consumoMensal = consumoDiarioTotal * dados.periodo.dia;
@@ -80,34 +83,50 @@ export function atualizarResultados(dados){
         animarNumero(outputMensal, consumoMensal, formatarConsumo);
         return consumoMensal;
     }
+
     const consumoMensalTotal = calculoMensal();
 
-    // calculo da conta convencional
 
+    // Cálculo da conta convencional
     function calculoConvencional(){
-        const outputConvencional = document.getElementById('custo-convencional');
-        const consumoConvecional = consumoMensalTotal * dados.tarifas.convencional;
+        const outputConvencional = document.getElementById("custo-convencional");
 
-        animarNumero(outputConvencional, consumoConvecional, formatarDinheiro);
+        const consumoConvencional =
+            consumoMensalTotal * dados.tarifas.convencional;
 
+        animarNumero(outputConvencional, consumoConvencional, formatarDinheiro);
+
+        return consumoConvencional;
     }
-    calculoConvencional();
 
-    // calculo conta brancad
+    const custoConvencional = calculoConvencional();
 
+    // Cálculo da conta branca
     function calculoContaBranca(){
         const consumoFaixa = consumoPorFaixa(dados.consumoPorHora);
 
-        const outputContaBranca = document.getElementById('custo-branca');
+        const outputContaBranca = document.getElementById("custo-branca");
+
         const consumoContaBranca = (
             (consumoFaixa.foraPonta * dados.tarifas.foraPonta) +
             (consumoFaixa.intermediario * dados.tarifas.intermediaria) +
-            (consumoFaixa.ponta * dados.tarifas.ponta)) * dados.periodo.dia;
-
+            (consumoFaixa.ponta * dados.tarifas.ponta)
+        ) * dados.periodo.dia;
 
         animarNumero(outputContaBranca, consumoContaBranca, formatarDinheiro);
+
+        return consumoContaBranca;
     }
-    calculoContaBranca();
+
+    const custoBranca = calculoContaBranca();
+
+    // Retorna os resultados para o main.js e chart.js
+    return {
+        consumoDiario: consumoDiarioTotal,
+        consumoMensal: consumoMensalTotal,
+        custoConvencional: custoConvencional,
+        custoBranca: custoBranca
+    };
 }
 // Função para gerar os dados da tabela de consumo por horário
 export function gerarDetalhamentoHorario(dados) {

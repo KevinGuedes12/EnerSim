@@ -209,7 +209,7 @@ const formatoMoedaComparacao = new Intl.NumberFormat("pt-BR", {
     currency: "BRL"
 });
 
-new Chart(canvasComparacao, {
+const graficoComparacao = new Chart(canvasComparacao, {
     type: "bar",
     data: {
         labels: ["Convencional", "Branca"],
@@ -231,7 +231,8 @@ new Chart(canvasComparacao, {
             },
             tooltip: {
                 callbacks: {
-                    label: (context) => formatoMoedaComparacao.format(context.parsed.y)
+                    label: (context) =>
+                        formatoMoedaComparacao.format(context.parsed.y)
                 }
             }
         },
@@ -251,9 +252,87 @@ new Chart(canvasComparacao, {
                 },
                 ticks: {
                     color: "#52677D",
-                    callback: (valor) => formatoMoedaComparacao.format(valor)
+                    callback: (valor) =>
+                        formatoMoedaComparacao.format(valor)
                 }
             }
         }
     }
 });
+
+// Atualiza o gráfico de comparação com os resultados da simulação
+export function atualizarComparacao(resultados) {
+    graficoComparacao.data.datasets[0].data = [
+        resultados.custoConvencional,
+        resultados.custoBranca
+    ];
+
+    graficoComparacao.update();
+}
+
+
+// Gráfico de valores das bandeiras tarifárias
+const canvasBandeiras = document.getElementById("chart-bandeiras");
+const graficoBandeiras = new Chart(canvasBandeiras, {
+    type: "bar",
+    data: {
+        labels: ["Verde", "Amarela", "Vermelha 1", "Vermelha 2"],
+        datasets: [{
+            label: "Adicional (R$/100 kWh)",
+            data: [0, 0, 0, 0],
+            backgroundColor: [
+                "#25C99A",
+                "#F5BC42",
+                "#F46368",
+                "#D93636"
+            ],
+            borderRadius: 5,
+            maxBarThickness: 45
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        locale: "pt-BR",
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                callbacks: {
+                    label: (context) =>
+                        `R$ ${context.parsed.y.toLocaleString("pt-BR", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        })} por 100 kWh`
+                }
+            }
+        },
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                }
+            },
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: "Valor (R$/100 kWh)"
+                }
+            }
+        }
+    }
+});
+
+// Atualiza os valores das bandeiras tarifárias
+export function atualizarGraficoBandeiras(bandeiras) {
+    graficoBandeiras.data.datasets[0].data = [
+        bandeiras.verde,
+        bandeiras.amarelo,
+        bandeiras.vermelha1,
+        bandeiras.vermelha2
+    ];
+
+    graficoBandeiras.update();
+}

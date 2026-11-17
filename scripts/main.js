@@ -94,9 +94,7 @@ function atualizarTela(dados) {
     const adicionalBandeira =
         consumoMensal * dados.bandeiras[dados.bandeiraAtiva] / 100;
 
-    atualizarComparacao({
-        custoConvencional: resultados.custoConvencional + adicionalBandeira,
-        custoBranca: resultados.custoBranca + adicionalBandeira
+   atualizarComparacao(resultados);
     });
 }
 

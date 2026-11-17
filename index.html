@@ -449,6 +449,89 @@
                         </div>
                     </div>
                 </section>
+                 <section class="tabelas-section" id="detalhamento">
+
+    <div class="tabelas-grid">
+
+        <!-- TABELA 1: CONSUMO POR HORA -->
+        <article class="tabela-card">
+            <h2>
+                <i class="fa-regular fa-clock"></i>
+                Detalhamento do consumo por hora
+            </h2>
+
+            <div class="tabela-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hora</th>
+                            <th>Consumo (kWh)</th>
+                            <th>Posto</th>
+                            <th>Tarifa (R$/kWh)</th>
+                            <th>Custo diário (R$)</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabela-consumo">
+                    </tbody>
+                </table>
+            </div>
+        </article>
+
+        <!-- GRÁFICO 2: BANDEIRAS -->
+        <article class="tabela-card">
+            <h2>
+                <i class="fa-solid fa-flag"></i>
+                Valores das bandeiras tarifárias
+            </h2>
+
+            <div class="grafico-bandeiras">
+                <canvas id="chart-bandeiras"></canvas>
+            </div>
+        </article>
+
+        <!-- TABELA 3: RESUMO MENSAL -->
+        <article class="tabela-card">
+            <h2>
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+                Resumo da conta mensal
+            </h2>
+
+            <div class="tabela-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Convencional</th>
+                            <th>Tarifa branca</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Consumo de energia</td>
+                            <td id="resumo-consumo-conv">R$ 0,00</td>
+                            <td id="resumo-consumo-branca">R$ 0,00</td>
+                        </tr>
+
+                        <tr>
+                            <td>Bandeira tarifária</td>
+                            <td id="resumo-bandeira-conv">R$ 0,00</td>
+                            <td id="resumo-bandeira-branca">R$ 0,00</td>
+                        </tr>
+
+                        <tr class="linha-total">
+                            <td>Total da conta</td>
+                            <td id="resumo-total-conv">R$ 0,00</td>
+                            <td id="resumo-total-branca">R$ 0,00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </article>
+
+    </div>
+</section>
             </main>
         </div>
     </div>

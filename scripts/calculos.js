@@ -85,14 +85,16 @@ export function atualizarResultados(dados){
     }
 
     const consumoMensalTotal = calculoMensal();
-
+    // Cálculo do adicional da bandeira tarifária
+    const adicionalBandeira =
+    consumoMensalTotal * dados.bandeiras[dados.bandeiraAtiva] / 100;
 
     // Cálculo da conta convencional
     function calculoConvencional(){
         const outputConvencional = document.getElementById("custo-convencional");
 
-        const consumoConvencional =
-            consumoMensalTotal * dados.tarifas.convencional;
+     const consumoConvencional =
+    (consumoMensalTotal * dados.tarifas.convencional) + adicionalBandeira;
 
         animarNumero(outputConvencional, consumoConvencional, formatarDinheiro);
 
@@ -108,10 +110,10 @@ export function atualizarResultados(dados){
         const outputContaBranca = document.getElementById("custo-branca");
 
         const consumoContaBranca = (
-            (consumoFaixa.foraPonta * dados.tarifas.foraPonta) +
-            (consumoFaixa.intermediario * dados.tarifas.intermediaria) +
-            (consumoFaixa.ponta * dados.tarifas.ponta)
-        ) * dados.periodo.dia;
+      (consumoFaixa.foraPonta * dados.tarifas.foraPonta) +
+      (consumoFaixa.intermediario * dados.tarifas.intermediaria) +
+      (consumoFaixa.ponta * dados.tarifas.ponta)
+       ) * dados.periodo.dia + adicionalBandeira;
 
         animarNumero(outputContaBranca, consumoContaBranca, formatarDinheiro);
 

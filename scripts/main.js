@@ -87,15 +87,9 @@ function atualizarTela(dados) {
 
     atualizarTabelaResumo(dados);
 
-    // O gráfico recebe os totais com a bandeira incluída
-    const faixas = consumoPorFaixa(dados.consumoPorHora);
-    const consumoMensal = faixas.total * dados.periodo.dia;
+    atualizarComparacao(resultados);
+};
 
-    const adicionalBandeira =
-        consumoMensal * dados.bandeiras[dados.bandeiraAtiva] / 100;
-
-   atualizarComparacao(resultados);
-    });
 }
 
 

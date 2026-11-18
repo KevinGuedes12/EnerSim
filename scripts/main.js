@@ -135,7 +135,6 @@ form.addEventListener("submit", (event) => {
         console.error("Erro ao atualizar a simulação:", err);
         alert("Não foi possível calcular os dados. Confira os valores preenchidos.");
     }
-});
 
 
 

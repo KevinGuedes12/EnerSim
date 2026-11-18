@@ -958,5 +958,186 @@ input, button, select, textarea { font: inherit; }
         gap: 10px;
     }
 }
+/* =========================================
+   SEÇÃO DE TABELAS E DETALHAMENTO - ENERSIM
+========================================= */
+
+.tabelas-section {
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.tabelas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+/* Card das tabelas e do gráfico */
+
+.tabela-card {
+    min-width: 0;
+    padding: 16px;
+
+    background-color: #FFFFFF;
+    border: 1px solid #D5DFE8;
+    border-radius: 12px;
+}
+
+/* Primeira tabela ocupa a largura completa */
+
+.tabela-card:first-child {
+    grid-column: 1 / -1;
+}
+
+/* Títulos */
+
+.tabela-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 16px;
+
+    color: #102B53;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.tabela-card h2 i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+
+    border-radius: 12px;
+    background-color: #D4EAFE;
+    color: #0067FF;
+    font-size: 20px;
+}
+
+/* Área de rolagem das tabelas */
+
+.tabela-scroll {
+    width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    border-radius: 8px;
+}
+
+/* Estrutura das tabelas */
+
+.tabela-card table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    color: #52677D;
+}
+
+/* Cabeçalho */
+
+.tabela-card thead {
+    background-color: #F0F6FC;
+}
+
+.tabela-card th {
+    padding: 13px 12px;
+
+    color: #102B53;
+    font-weight: 700;
+    text-align: left;
+    white-space: nowrap;
+
+    border-bottom: 1px solid #D5DFE8;
+}
+
+/* Células */
+
+.tabela-card td {
+    padding: 12px;
+
+    border-bottom: 1px solid #E8EEF4;
+    white-space: nowrap;
+}
+
+/* Linhas alternadas */
+
+.tabela-card tbody tr:nth-child(even) {
+    background-color: #F8FAFD;
+}
+
+/* Efeito ao passar o mouse */
+
+.tabela-card tbody tr:hover {
+    background-color: #EDF5FD;
+}
+
+/* Última linha da tabela */
+
+.tabela-card tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Destaque do total mensal */
+
+.tabela-card .linha-total {
+    background-color: #EAFBF4;
+    font-weight: 700;
+}
+
+.tabela-card .linha-total td {
+    color: #075D4A;
+    border-top: 2px solid #25C99A;
+}
+
+/* Gráfico de bandeiras tarifárias */
+
+.grafico-bandeiras {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    height: 260px;
+}
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .tabelas-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .tabela-card:first-child {
+        grid-column: auto;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .tabelas-section {
+        padding: 6px;
+    }
+
+    .tabela-card {
+        padding: 12px;
+    }
+
+    .tabela-card h2 {
+        font-size: 15px;
+    }
+
+    .tabela-card th,
+    .tabela-card td {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+}
 
 

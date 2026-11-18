@@ -38,7 +38,7 @@ export function preencherForms(dados){
 
     const inputPeriodo = document.getElementById('dia')
     inputPeriodo.value = dados.periodo.dia;
-
+    document.getElementById("bandeiraAtiva").value = dados.bandeiraAtiva;
 }
 
 export function capturaDadosform(){
@@ -60,6 +60,14 @@ export function capturaDadosform(){
             intermediaria: Number(document.getElementById("intermediaria").value),
             ponta: Number(document.getElementById("ponta").value)
         },
+        bandeiras: {
+            verde: Number(document.getElementById("verde").value),
+            amarelo: Number(document.getElementById("amarelo").value),
+            vermelha1: Number(document.getElementById("vermelha1").value),
+            vermelha2: Number(document.getElementById("vermelha2").value)
+        },
+
+        bandeiraAtiva: document.getElementById("bandeiraAtiva").value,
         periodo: {
             dia: Number(document.getElementById("dia").value),
         }

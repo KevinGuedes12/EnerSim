@@ -951,10 +951,10 @@ input, button, select, textarea { font: inherit; }
         grid-template-columns: minmax(0, 1fr);
     }
 }
-
 @container (max-width: 420px) {
     .chart-tarifario {
-        grid-template-columns: minmax(0, 1fr);
+        flex-direction: column;
+        align-items: center;
         gap: 10px;
     }
 }

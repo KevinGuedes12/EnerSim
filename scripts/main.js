@@ -1,7 +1,8 @@
-import { atualizarGrafico, atualizarComparacao, atualizarBandeiras } from "./chart.js";
+import { atualizarGrafico, atualizarComparacao, atualizarBandeiras, atualizarGraficoBandeiras } from "./chart.js";
 import { preencherForms, capturaDadosform, validarDados, minimizarCampo } from "./functions.js";
 import { atualizarResultados } from "./calculos.js";
 import { prepararCenarios, invalidarCenarios } from "./cenarios-ui.js";
+import { atualizarTabelas } from "./tabelas.js";
 
 const arquivo = document.getElementById("json-file");
 const form = document.getElementById("Formulario");
@@ -19,6 +20,8 @@ function atualizarTela(dados) {
     atualizarBandeiras(dados);
     atualizarComparacao(resultados);
     atualizarGrafico(dados.consumoPorHora, dados.periodo.dia);
+    atualizarGraficoBandeiras(dados.bandeiras);
+    atualizarTabelas(dados);
     mensagem.textContent = "";
     mensagem.hidden = true;
 }

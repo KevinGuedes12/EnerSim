@@ -320,3 +320,70 @@ export function atualizarComparacao(resultados, cenario = null) {
 
 seletorComparacao.addEventListener("change", desenharComparacao);
 desenharComparacao();
+
+// Valores adicionais de cada bandeira (R$/100 kWh).
+const canvasBandeiras = document.getElementById("chart-bandeiras");
+const graficoBandeiras = new Chart(canvasBandeiras, {
+    type: "bar",
+    data: {
+        labels: ["Verde", "Amarela", "Vermelha 1", "Vermelha 2"],
+        datasets: [{
+            label: "Adicional (R$/100 kWh)",
+            data: [0, 0, 0, 0],
+            backgroundColor: [
+                "#25C99A",
+                "#F5BC42",
+                "#F46368",
+                "#D93636"
+            ],
+            borderRadius: 5,
+            maxBarThickness: 45
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        locale: "pt-BR",
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                callbacks: {
+                    label: (context) =>
+                        `R$ ${context.parsed.y.toLocaleString("pt-BR", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        })} por 100 kWh`
+                }
+            }
+        },
+        scales: {
+            x: {
+                title: { display: true, text: "Bandeira tarifária" },
+                grid: {
+                    display: false
+                }
+            },
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: "Valor (R$/100 kWh)"
+                }
+            }
+        }
+    }
+});
+
+// Atualiza os valores das bandeiras tarifárias
+export function atualizarGraficoBandeiras(bandeiras) {
+    graficoBandeiras.data.datasets[0].data = [
+        bandeiras.verde,
+        bandeiras.amarelo,
+        bandeiras.vermelha1,
+        bandeiras.vermelha2
+    ];
+
+    graficoBandeiras.update();
+}

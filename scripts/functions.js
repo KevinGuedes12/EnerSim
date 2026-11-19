@@ -38,7 +38,7 @@ export function validarDados(dados) {
 
 
 
-// função para preencher o formulario atravez do arquivo json
+// função para preencher o formulario atraves do arquivo json
 
 export function preencherForms(dados){
     document.getElementById("bandeira-ativa").value = dados.bandeiraAtiva;

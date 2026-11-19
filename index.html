@@ -532,6 +532,88 @@
                         </div>
                     </div>
                 </section>
+                <section class="tabelas-section" id="detalhamento" aria-label="Detalhamento da simulação base">
+                    <p class="tabelas-ajuda">As tabelas mostram a última simulação base calculada, assim como os cartões. Os resultados do “E se…?” aparecem no painel de cenários e nos gráficos de comparação.</p>
+                    <div class="tabelas-grid">
+                        <article class="tabela-card">
+                            <h2 id="titulo-tabela-consumo"><i class="fa-regular fa-clock" aria-hidden="true"></i>Detalhamento do consumo por hora</h2>
+                            <p class="tabelas-ajuda" id="nota-tabela-consumo">Perfil diário da base. A tarifa e o custo por hora são da tarifa branca, sem o adicional da bandeira.</p>
+                            <div class="tabela-scroll" tabindex="0" role="region" aria-labelledby="titulo-tabela-consumo">
+                                <table aria-labelledby="titulo-tabela-consumo" aria-describedby="nota-tabela-consumo">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Hora</th>
+                                            <th scope="col">Consumo (kWh)</th>
+                                            <th scope="col">Posto</th>
+                                            <th scope="col">Tarifa (R$/kWh)</th>
+                                            <th scope="col">Custo diário (R$)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela-consumo"></tbody>
+                                </table>
+                            </div>
+                        </article>
+                        <article class="tabela-card">
+                            <h2><i class="fa-solid fa-flag" aria-hidden="true"></i>Valores das bandeiras tarifárias</h2>
+                            <div class="grafico-bandeiras">
+                                <canvas id="chart-bandeiras" role="img" aria-label="Adicional de cada bandeira tarifária, em reais por 100 kWh"></canvas>
+                            </div>
+                        </article>
+                        <article class="tabela-card">
+                            <h2 id="titulo-tabela-resumo"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i>Resumo da conta mensal</h2>
+                            <p class="tabelas-ajuda">Simulação base com a bandeira selecionada.</p>
+                            <div class="tabela-scroll" tabindex="0" role="region" aria-labelledby="titulo-tabela-resumo">
+                                <table aria-labelledby="titulo-tabela-resumo">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Descrição</th>
+                                            <th scope="col">Convencional</th>
+                                            <th scope="col">Tarifa branca</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Consumo de energia</th>
+                                            <td id="resumo-consumo-conv">R$ 0,00</td>
+                                            <td id="resumo-consumo-branca">R$ 0,00</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Bandeira tarifária</th>
+                                            <td id="resumo-bandeira-conv">R$ 0,00</td>
+                                            <td id="resumo-bandeira-branca">R$ 0,00</td>
+                                        </tr>
+                                        <tr class="linha-total">
+                                            <th scope="row">Total da conta</th>
+                                            <td id="resumo-total-conv">R$ 0,00</td>
+                                            <td id="resumo-total-branca">R$ 0,00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </article>
+                        <article class="tabela-card tabela-bandeiras-card">
+                            <h2 id="titulo-tabela-bandeiras"><i class="fa-solid fa-table" aria-hidden="true"></i>Contas mensais por bandeira</h2>
+                            <p class="tabelas-ajuda">Valores em reais para o mesmo consumo da base, incluindo o adicional de cada bandeira.</p>
+                            <div class="tabela-scroll" tabindex="0" role="region" aria-labelledby="titulo-tabela-bandeiras">
+                                <table aria-labelledby="titulo-tabela-bandeiras">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Bandeira</th>
+                                            <th scope="col">Convencional (R$)</th>
+                                            <th scope="col">Tarifa branca (R$)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela-bandeiras">
+                                        <tr><th scope="row">Verde</th><td>R$ 0,00</td><td>R$ 0,00</td></tr>
+                                        <tr><th scope="row">Amarela</th><td>R$ 0,00</td><td>R$ 0,00</td></tr>
+                                        <tr><th scope="row">Vermelha 1</th><td>R$ 0,00</td><td>R$ 0,00</td></tr>
+                                        <tr><th scope="row">Vermelha 2</th><td>R$ 0,00</td><td>R$ 0,00</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </article>
+                    </div>
+                </section>
             </main>
         </div>
     </div>

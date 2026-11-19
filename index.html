@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>EnerSim</title>
+    <link rel="icon" type="image/png" href="Image/logotipo.png">
     <link rel="stylesheet" href="Css/variaveis.css">
     <link rel="stylesheet" href="Css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -44,6 +46,7 @@
 
                             <p>Carregue um arquivo para preencher os dados.</p>
 
+                            <p id="status-arquivo" class="upload-status" role="status" aria-live="polite" aria-atomic="true" hidden></p>
                             <div class="upload-options">
 
                                 <div class="upload-item">
@@ -294,15 +297,76 @@
                                 <input type="number"  id="dia" name="dia" min="28" max="31" value="30" required>
                             </div>
                         </div>
+                        <p id="aviso-base" class="aviso-base" role="status" hidden>Dados alterados. Clique em Calcular para atualizar a base e liberar o “E se…?”.</p>
                         <p id="erro-dados" class="form-error" role="alert" hidden></p>
                         <div class="container-btn">
-                            <button type="submit" class="btn-submit">
+                            <button type="submit" class="btn-submit" id="btn-submit">
                                 <i class="fa-solid fa-calculator"></i>
                                 Calcular Simulação</button>
                         </div>
                     </details>
                 </div>
             </form>
+
+            <section id="cenario" class="cenario" aria-labelledby="cenario-titulo" hidden>
+                <h2 id="cenario-titulo"><i class="fa-solid fa-shuffle" aria-hidden="true"></i> E se…?</h2>
+                <div class="cenario-opcao">
+                    <h3>Deslocar 50% da ponta</h3>
+                    <label for="destino-metade">Horário de destino</label>
+                    <select id="destino-metade" data-horarios="fora" data-inicial="22"></select>
+                    <button id="simular-metade" type="button" class="cenario-botao">Simular 50% da ponta</button>
+                </div>
+                <details class="cenario-habitos">
+                    <summary>Mudar banho e lavagem</summary>
+                    <form id="form-habitos">
+                        <fieldset class="cenario-habito">
+    <legend>Banho</legend>
+    <label for="banho-origem">Horário atual</label>
+    <select id="banho-origem" data-horarios="todos" data-inicial="19"></select>
+    <label for="banho-parcela">Parcela estimada dessa hora (%)</label>
+    <input id="banho-parcela" type="number" min="0" max="100" step="1" value="50" required aria-describedby="banho-estimativa">
+    <p id="banho-estimativa" class="cenario-ajuda"></p>
+    <label for="banho-destino">Mover para fora da ponta</label>
+    <select id="banho-destino" data-horarios="fora" data-inicial="22"></select>
+</fieldset>
+                        <fieldset class="cenario-habito">
+    <legend>Máquina de lavar</legend>
+    <label for="lavagem-origem">Horário atual</label>
+    <select id="lavagem-origem" data-horarios="todos" data-inicial="18"></select>
+    <label for="lavagem-parcela">Parcela estimada dessa hora (%)</label>
+    <input id="lavagem-parcela" type="number" min="0" max="100" step="1" value="50" required aria-describedby="lavagem-estimativa">
+    <p id="lavagem-estimativa" class="cenario-ajuda"></p>
+    <label for="lavagem-destino">Mover para fora da ponta</label>
+    <select id="lavagem-destino" data-horarios="fora" data-inicial="10"></select>
+</fieldset>
+                        <button type="submit" class="cenario-botao">Simular hábitos</button>
+                    </form>
+                </details>
+                <p id="cenario-erro" class="form-error" role="alert" hidden></p>
+                <div id="cenario-resultado" class="cenario-resultado" role="status" aria-live="polite" hidden>
+                    <h3 id="cenario-titulo-resultado"></h3>
+                    <p id="cenario-energia"></p>
+                    <div class="cenario-conta">
+                        <h4>Convencional</h4>
+                        <dl>
+                            <div><dt>Antes</dt><dd id="conv-antes"></dd></div>
+                            <div><dt>Depois</dt><dd id="conv-depois"></dd></div>
+                            <div><dt>Economia mensal</dt><dd id="economia-conv"></dd></div>
+                        </dl>
+                    </div>
+                    <div class="cenario-conta">
+                        <h4>Branca</h4>
+                        <dl>
+                            <div><dt>Antes</dt><dd id="branca-antes"></dd></div>
+                            <div><dt>Depois</dt><dd id="branca-depois"></dd></div>
+                            <div><dt>Economia mensal</dt><dd id="economia-branca"></dd></div>
+                        </dl>
+                    </div>
+                    <p id="cenario-conclusao"></p>
+                    <a class="cenario-link" href="#chart-comparacao">Ver comparação no gráfico</a>
+                </div>
+                <button id="restaurar-base" type="button" class="cenario-botao cenario-secundario">Restaurar cenário base</button>
+            </section>
         </div>
     </aside>
 
@@ -419,21 +483,24 @@
                                                     <span class="legend-dot fora" aria-hidden="true"></span>
                                                     <div>
                                                         <h3>Fora de ponta</h3>
-                                                        <p id="legenda-fora">0,00 kWh (0,00%)</p>
+                                                        <p id="legenda-fora">0,00 kWh/dia (0,00%)</p>
+                                                        <p id="legenda-fora-mensal">0,00 kWh/mês</p>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <span class="legend-dot inter" aria-hidden="true"></span>
                                                     <div>
                                                         <h3>Intermediária</h3>
-                                                        <p id="legenda-inter">0,00 kWh (0,00%)</p>
+                                                        <p id="legenda-inter">0,00 kWh/dia (0,00%)</p>
+                                                        <p id="legenda-inter-mensal">0,00 kWh/mês</p>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <span class="legend-dot ponta" aria-hidden="true"></span>
                                                     <div>
                                                         <h3>Ponta</h3>
-                                                        <p id="legenda-ponta">0,00 kWh (0,00%)</p>
+                                                        <p id="legenda-ponta">0,00 kWh/dia (0,00%)</p>
+                                                        <p id="legenda-ponta-mensal">0,00 kWh/mês</p>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -449,14 +516,102 @@
                                     </div>
                                     Comparação de custos mensais
                                 </figcaption>
+                                <div class="comparacao-controle">
+                                    <label for="tipo-comparacao">Comparar</label>
+                                    <select id="tipo-comparacao">
+                                        <option value="cenarios">Antes/depois</option>
+                                        <option value="bandeiras">Por bandeira</option>
+                                    </select>
+                                </div>
                                 <div class="chart-comparacao">
                                     <canvas id="chart-comparacao" role="img" aria-label="Comparação dos custos mensais entre tarifa convencional e tarifa branca">
                                     </canvas>
                                 </div>
-                                <div class="text-box2"></div>
                             </figure>
                         </div>
                         </div>
+                    </div>
+                </section>
+                <section class="tabelas-section" id="detalhamento" aria-label="Detalhamento da simulação base">
+                    <p class="tabelas-ajuda">As tabelas mostram a última simulação base calculada, assim como os cartões. Os resultados do “E se…?” aparecem no painel de cenários e nos gráficos de comparação.</p>
+                    <div class="tabelas-grid">
+                        <article class="tabela-card">
+                            <h2 id="titulo-tabela-consumo"><i class="fa-regular fa-clock" aria-hidden="true"></i>Detalhamento do consumo por hora</h2>
+                            <p class="tabelas-ajuda" id="nota-tabela-consumo">Perfil diário da base. A tarifa e o custo por hora são da tarifa branca, sem o adicional da bandeira.</p>
+                            <div class="tabela-scroll" tabindex="0" role="region" aria-labelledby="titulo-tabela-consumo">
+                                <table aria-labelledby="titulo-tabela-consumo" aria-describedby="nota-tabela-consumo">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Hora</th>
+                                            <th scope="col">Consumo (kWh)</th>
+                                            <th scope="col">Posto</th>
+                                            <th scope="col">Tarifa (R$/kWh)</th>
+                                            <th scope="col">Custo diário (R$)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela-consumo"></tbody>
+                                </table>
+                            </div>
+                        </article>
+                        <article class="tabela-card">
+                            <h2><i class="fa-solid fa-flag" aria-hidden="true"></i>Valores das bandeiras tarifárias</h2>
+                            <div class="grafico-bandeiras">
+                                <canvas id="chart-bandeiras" role="img" aria-label="Adicional de cada bandeira tarifária, em reais por 100 kWh"></canvas>
+                            </div>
+                        </article>
+                        <article class="tabela-card">
+                            <h2 id="titulo-tabela-resumo"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i>Resumo da conta mensal</h2>
+                            <p class="tabelas-ajuda">Simulação base com a bandeira selecionada.</p>
+                            <div class="tabela-scroll" tabindex="0" role="region" aria-labelledby="titulo-tabela-resumo">
+                                <table aria-labelledby="titulo-tabela-resumo">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Descrição</th>
+                                            <th scope="col">Convencional</th>
+                                            <th scope="col">Tarifa branca</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Consumo de energia</th>
+                                            <td id="resumo-consumo-conv">R$ 0,00</td>
+                                            <td id="resumo-consumo-branca">R$ 0,00</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Bandeira tarifária</th>
+                                            <td id="resumo-bandeira-conv">R$ 0,00</td>
+                                            <td id="resumo-bandeira-branca">R$ 0,00</td>
+                                        </tr>
+                                        <tr class="linha-total">
+                                            <th scope="row">Total da conta</th>
+                                            <td id="resumo-total-conv">R$ 0,00</td>
+                                            <td id="resumo-total-branca">R$ 0,00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </article>
+                        <article class="tabela-card tabela-bandeiras-card">
+                            <h2 id="titulo-tabela-bandeiras"><i class="fa-solid fa-table" aria-hidden="true"></i>Contas mensais por bandeira</h2>
+                            <p class="tabelas-ajuda">Valores em reais para o mesmo consumo da base, incluindo o adicional de cada bandeira.</p>
+                            <div class="tabela-scroll" tabindex="0" role="region" aria-labelledby="titulo-tabela-bandeiras">
+                                <table aria-labelledby="titulo-tabela-bandeiras">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Bandeira</th>
+                                            <th scope="col">Convencional (R$)</th>
+                                            <th scope="col">Tarifa branca (R$)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela-bandeiras">
+                                        <tr><th scope="row">Verde</th><td>R$ 0,00</td><td>R$ 0,00</td></tr>
+                                        <tr><th scope="row">Amarela</th><td>R$ 0,00</td><td>R$ 0,00</td></tr>
+                                        <tr><th scope="row">Vermelha 1</th><td>R$ 0,00</td><td>R$ 0,00</td></tr>
+                                        <tr><th scope="row">Vermelha 2</th><td>R$ 0,00</td><td>R$ 0,00</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </article>
                     </div>
                 </section>
             </main>

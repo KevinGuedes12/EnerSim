@@ -38,7 +38,7 @@ export function validarDados(dados) {
 
 
 
-// função para preencher o formulario atravez do arquivo json
+// função para preencher o formulario atraves do arquivo json
 
 export function preencherForms(dados){
     document.getElementById("bandeira-ativa").value = dados.bandeiraAtiva;
@@ -112,4 +112,13 @@ export function capturaDadosform(){
     };
 
     return dados;
+}
+
+//função para fecha details do sidebar quando os dados forem carregados
+
+ export function minimizarCampo(){
+    document.querySelectorAll('#Formulario .sidebar-accordion:not(.sidebarsubmit)')
+        .forEach((campo) => {
+            campo.open = false;
+        })
 }

@@ -1,4 +1,4 @@
-import { consumoPorFaixa } from "./calculos.js";
+import { consumoPorFaixa, calcularResultados } from "./calculos.js";
 
 const canvasConsumo = document.getElementById("chart-hourly");
 const formatoConsumo = new Intl.NumberFormat("pt-BR", {
@@ -17,11 +17,18 @@ const horarios = Array.from(
 let consumo = Array(24).fill(0);
 
 
-export function atualizarGrafico(consumoPorHora){
+export function atualizarGrafico(consumoPorHora, dias, cenario = null){
     consumo = consumoPorHora;
     graficoConsumo.data.datasets[0].data = consumo;
+    graficoConsumo.data.datasets.length = 1;
+    graficoConsumo.data.datasets[0].label = cenario ? 'Antes (kWh)' : 'Consumo (kWh)';
+    if (cenario) graficoConsumo.data.datasets.push({
+        label: 'Depois (kWh)', data: cenario, backgroundColor: cores,
+        borderColor: '#102B53', borderWidth: 2, borderRadius: 4, maxBarThickness: 22
+    });
+    graficoConsumo.options.plugins.legend.display = Boolean(cenario);
     graficoConsumo.update();
-    atualizarConsumoTarifario(consumoPorHora);
+    atualizarConsumoTarifario(consumoPorHora, dias);
 }
 
 
@@ -66,7 +73,7 @@ const graficoConsumo = new Chart(canvasConsumo, {
             tooltip: {
                 callbacks: {
                     label: (context) =>
-                        `Consumo: ${formatoConsumo.format(context.parsed.y)} kWh`
+                        `${context.dataset.label}: ${formatoConsumo.format(context.parsed.y)} kWh`
                 }
             }
         },
@@ -180,7 +187,7 @@ const graficoTarifca = new Chart(canvasdoughnut, {
 
 });
 
-function atualizarConsumoTarifario(consumoPorHora) {
+function atualizarConsumoTarifario(consumoPorHora, dias) {
     const totalConsumo = consumoPorFaixa(consumoPorHora);
     const valores = [
         totalConsumo.foraPonta,
@@ -195,7 +202,9 @@ function atualizarConsumoTarifario(consumoPorHora) {
             : 0;
         const legenda = document.getElementById(`legenda-${postos[indice]}`);
 
-        legenda.textContent = `${formatoConsumo.format(consumo)} kWh (${formatoConsumo.format(percentual)}%)`;
+        legenda.textContent = `${formatoConsumo.format(consumo)} kWh/dia (${formatoConsumo.format(percentual)}%)`;
+        document.getElementById(`legenda-${postos[indice]}-mensal`).textContent =
+            `${formatoConsumo.format(consumo * dias)} kWh/mês`;
     });
 
     graficoTarifca.data.datasets[0].data = valores;
@@ -231,12 +240,13 @@ const graficoComparacao = new Chart(canvasComparacao, {
             },
             tooltip: {
                 callbacks: {
-                    label: (context) => formatoMoedaComparacao.format(context.parsed.y)
+                    label: (context) => context.dataset.label + ": " + formatoMoedaComparacao.format(context.parsed.y)
                 }
             }
         },
         scales: {
             x: {
+                title: { display: true, text: "Modalidade tarifária" },
                 grid: {
                     display: false
                 },
@@ -245,6 +255,7 @@ const graficoComparacao = new Chart(canvasComparacao, {
                 }
             },
             y: {
+                title: { display: true, text: "Custo mensal (R$)" },
                 beginAtZero: true,
                 grid: {
                     color: "#E8EEF4"
@@ -258,7 +269,121 @@ const graficoComparacao = new Chart(canvasComparacao, {
     }
 });
 
-export function atualizarComparacao(resultados) {
-    graficoComparacao.data.datasets[0].data = [resultados.custoConvencional, resultados.custoBranca];
+
+const seletorComparacao = document.getElementById("tipo-comparacao");
+const bandeirasComparacao = ["verde", "amarelo", "vermelha1", "vermelha2"];
+const nomesBandeiras = ["Verde", "Amarela", "Vermelha 1", "Vermelha 2"];
+let resultadosBase = { custoConvencional: 0, custoBranca: 0 };
+let resultadosCenario = null;
+let contasPorBandeira = null;
+
+function serieComparacao(label, data, backgroundColor) {
+    return { label, data, backgroundColor, borderRadius: 4, maxBarThickness: 48 };
+}
+
+function desenharComparacao() {
+    const porBandeira = seletorComparacao.value === "bandeiras";
+    if (porBandeira) {
+        graficoComparacao.data.labels = nomesBandeiras;
+        graficoComparacao.data.datasets = [
+            serieComparacao("Convencional", bandeirasComparacao.map((_, i) => contasPorBandeira?.[i].custoConvencional ?? 0), "#0067FF"),
+            serieComparacao("Branca", bandeirasComparacao.map((_, i) => contasPorBandeira?.[i].custoBranca ?? 0), "#25C99A")
+        ];
+    } else {
+        graficoComparacao.data.labels = ["Convencional", "Branca"];
+        graficoComparacao.data.datasets = [
+            serieComparacao(resultadosCenario ? "Antes" : "Cenário base",
+                [resultadosBase.custoConvencional, resultadosBase.custoBranca], "#0067FF")
+        ];
+        if (resultadosCenario) graficoComparacao.data.datasets.push(
+            serieComparacao("Depois", [resultadosCenario.custoConvencional, resultadosCenario.custoBranca], "#25C99A")
+        );
+    }
+    graficoComparacao.options.plugins.legend.display = porBandeira || Boolean(resultadosCenario);
+    graficoComparacao.options.scales.x.title.text = porBandeira ? "Bandeira tarifária" : "Modalidade tarifária";
+    canvasComparacao.setAttribute("aria-label", porBandeira
+        ? "Contas convencional e branca nas quatro bandeiras, cenário base"
+        : "Contas convencional e branca antes e depois da mudança de hábito");
     graficoComparacao.update();
+}
+
+// Calcula as oito contas usando o mesmo perfil base e as fórmulas do simulador.
+export function atualizarBandeiras(dados) {
+    contasPorBandeira = bandeirasComparacao.map(bandeiraAtiva => calcularResultados({ ...dados, bandeiraAtiva }));
+}
+
+export function atualizarComparacao(resultados, cenario = null) {
+    resultadosBase = { ...resultados };
+    resultadosCenario = cenario ? { ...cenario } : null;
+    desenharComparacao();
+}
+
+seletorComparacao.addEventListener("change", desenharComparacao);
+desenharComparacao();
+
+// Valores adicionais de cada bandeira (R$/100 kWh).
+const canvasBandeiras = document.getElementById("chart-bandeiras");
+const graficoBandeiras = new Chart(canvasBandeiras, {
+    type: "bar",
+    data: {
+        labels: ["Verde", "Amarela", "Vermelha 1", "Vermelha 2"],
+        datasets: [{
+            label: "Adicional (R$/100 kWh)",
+            data: [0, 0, 0, 0],
+            backgroundColor: [
+                "#25C99A",
+                "#F5BC42",
+                "#F46368",
+                "#D93636"
+            ],
+            borderRadius: 5,
+            maxBarThickness: 45
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        locale: "pt-BR",
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                callbacks: {
+                    label: (context) =>
+                        `R$ ${context.parsed.y.toLocaleString("pt-BR", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        })} por 100 kWh`
+                }
+            }
+        },
+        scales: {
+            x: {
+                title: { display: true, text: "Bandeira tarifária" },
+                grid: {
+                    display: false
+                }
+            },
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: "Valor (R$/100 kWh)"
+                }
+            }
+        }
+    }
+});
+
+// Atualiza os valores das bandeiras tarifárias
+export function atualizarGraficoBandeiras(bandeiras) {
+    graficoBandeiras.data.datasets[0].data = [
+        bandeiras.verde,
+        bandeiras.amarelo,
+        bandeiras.vermelha1,
+        bandeiras.vermelha2
+    ];
+
+    graficoBandeiras.update();
 }

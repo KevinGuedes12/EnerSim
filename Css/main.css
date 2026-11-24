@@ -634,43 +634,8 @@ input, button, select, textarea { font: inherit; }
     background-color: #F3F8FD;
 }
 
-/*header main*/
-.main-header {
-    flex-shrink: 0;
-    min-height: 64px;
-    padding: 16px 24px;
-    background-color: #0C2038;
-
-}
-/*navegação-header*/
-.header-nav{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 32px;
-
-
-}
-.header-nav a {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    color: #A8BED2;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 500;
-
-    transition: color 0.2s ease;
-}
-.header-nav a i {
-    font-size: 16px;
-}
-
-.header-nav a:hover {
-    color: #2DE3B1;
-}
 .main{
+    padding: clamp(12px, 2vw, 24px);
     background-color: #F3F8FD;
     flex: 1;
     min-height: 0;
@@ -693,8 +658,6 @@ input, button, select, textarea { font: inherit; }
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
     gap: 16px;
-    margin: 10px ;
-
 }
 
 .result-card{
@@ -785,7 +748,7 @@ input, button, select, textarea { font: inherit; }
 
 .charts-card1{
     background-color: #FFFFFF;
-    margin: 20px 10px;
+    margin: 20px 0 18px;
     min-width: 0;
     border: 1px solid #D5DFE8;
     border-radius: 12px;
@@ -851,7 +814,6 @@ input, button, select, textarea { font: inherit; }
     display: grid;
     grid-template-columns: 420px minmax(0, 1fr);
     gap: 18px;
-    margin: 10px;
 }
 .chart-card figcaption{
     display: flex;
@@ -984,7 +946,6 @@ input, button, select, textarea { font: inherit; }
 @media (max-width: 760px) {
     .app-layout { grid-template-columns: minmax(0, 1fr); height: auto; overflow: visible; }
     .sidebar, .container-main, .main { overflow: visible; }
-    .header-nav { gap: 12px 20px; }
 }
 
 .upload-content .upload-status {
@@ -1153,7 +1114,7 @@ input, button, select, textarea { font: inherit; }
 ========================================= */
 
 .tabelas-section {
-    padding: 10px;
+    margin-top: 18px;
     margin-bottom: 20px;
     min-width: 0;
     container-type: inline-size;
@@ -1165,10 +1126,6 @@ input, button, select, textarea { font: inherit; }
     font-size: 13px;
 }
 
-.tabela-bandeiras-card {
-    grid-column: 1 / -1;
-}
-
 .tabela-scroll:focus-visible {
     outline: 2px solid #0067FF;
     outline-offset: 2px;
@@ -1176,7 +1133,9 @@ input, button, select, textarea { font: inherit; }
 
 .tabelas-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: stretch;
     gap: 18px;
 }
 
@@ -1189,12 +1148,6 @@ input, button, select, textarea { font: inherit; }
     background-color: #FFFFFF;
     border: 1px solid #D5DFE8;
     border-radius: 12px;
-}
-
-/* Primeira tabela ocupa a largura completa */
-
-.tabela-card:first-child {
-    grid-column: 1 / -1;
 }
 
 /* Títulos */
@@ -1233,6 +1186,23 @@ input, button, select, textarea { font: inherit; }
     min-width: 0;
     overflow-x: auto;
     border-radius: 8px;
+}
+
+.tabela-scroll-horaria {
+    max-height: min(20rem, 50vh);
+    overflow: auto;
+}
+
+.tabela-card .tabela-scroll-horaria th,
+.tabela-card .tabela-scroll-horaria td {
+    padding-block: 7px;
+}
+
+.tabela-scroll-horaria thead th {
+    position: sticky;
+    top: 0;
+    background-color: #F0F6FC;
+    box-shadow: 0 1px #D5DFE8;
 }
 
 /* Estrutura das tabelas */
@@ -1307,40 +1277,33 @@ input, button, select, textarea { font: inherit; }
 
 /* Gráfico de bandeiras tarifárias */
 
+.grafico-bandeiras-card {
+    display: flex;
+    flex-direction: column;
+}
+
 .grafico-bandeiras {
     position: relative;
     width: 100%;
     min-width: 0;
-    height: 260px;
+    min-height: 260px;
+    flex: 1;
+    /* O canvas acompanha o contêiner sem determinar seu tamanho. */
+    contain: size;
 }
 
 /* =========================================
    RESPONSIVIDADE
 ========================================= */
 
-@media (max-width: 800px) {
-
+@container (max-width: 850px) {
     .tabelas-grid {
         grid-template-columns: minmax(0, 1fr);
-    }
-
-    .tabela-card:first-child {
-        grid-column: auto;
-    }
-
-}
-
-@container (max-width: 700px) {
-    .tabelas-grid {
-        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: none;
     }
 }
 
 @media (max-width: 480px) {
-
-    .tabelas-section {
-        padding: 6px;
-    }
 
     .tabela-card {
         padding: 12px;
